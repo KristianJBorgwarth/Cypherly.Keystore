@@ -1,4 +1,5 @@
 using System.Reflection;
+using Cypherly.Keystore.API.Configuration;
 using Cypherly.Keystore.Application.Configuration;
 using Cypherly.Keystore.Infrastructure.Configuration;
 using Scalar.AspNetCore;
@@ -50,9 +51,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddApplication(Assembly.Load("Cypherly.Keystore.Application"));
 builder.Services.AddInfrastructure(configuration, Assembly.Load("Cypherly.Keystore.Infrastructure"));
 
+builder.Services.AddEndpoints();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.RegisterMinimalEndpoints();
+
 app.UseCors("Development");
 
 #region Scalar
@@ -70,6 +75,7 @@ if (app.Environment.IsDevelopment())
 }
 
 #endregion
+
 
 
 if (env.IsProduction())

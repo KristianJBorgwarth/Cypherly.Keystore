@@ -23,6 +23,8 @@ internal static class PersistenceConfiguration
                 });
         });
 
+        services.AddRepositories();
+
         return services;
     }
 
