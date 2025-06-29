@@ -30,6 +30,8 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+builder.Services.AddObservability();
+
 #endregion
 
 #region CORS
@@ -62,17 +64,14 @@ app.UseCors("Development");
 
 #region Scalar
 
-if (app.Environment.IsDevelopment())
+app.MapOpenApi();
+app.MapScalarApiReference(options =>
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options.WithTitle("Cypherly.Keystore.API V1")
-            .WithTheme(ScalarTheme.Purple)
-            .WithDarkModeToggle(false)
-            .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
-    });
-}
+    options.WithTitle("Cypherly.Keystore.API V1")
+        .WithTheme(ScalarTheme.Purple)
+        .WithDarkModeToggle(false)
+        .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
+});
 
 #endregion
 
