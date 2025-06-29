@@ -24,9 +24,9 @@ if (env.IsDevelopment())
 
 #region Logging
 
-// Log.Logger = new LoggerConfiguration()
-//     .ReadFrom.Configuration(configuration)
-//     .CreateLogger();
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .CreateLogger();
 
 builder.Host.UseSerilog();
 
