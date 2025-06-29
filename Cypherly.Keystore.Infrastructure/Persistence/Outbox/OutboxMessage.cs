@@ -1,6 +1,6 @@
-﻿namespace Cypherly.Keystore.Infrastructure.Outbox;
+﻿namespace Cypherly.Keystore.Infrastructure.Persistence.Outbox;
 
-public class OutboxMessage
+public sealed class OutboxMessage
 {
     public Guid Id { get; init; }
     public string Type { get; init; } = string.Empty;

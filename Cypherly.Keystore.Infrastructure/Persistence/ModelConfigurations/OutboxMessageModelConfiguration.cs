@@ -1,10 +1,10 @@
-﻿using Cypherly.Keystore.Infrastructure.Outbox;
+﻿using Cypherly.Keystore.Infrastructure.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Cypherly.Keystore.Infrastructure.ModelConfigurations;
+namespace Cypherly.Keystore.Infrastructure.Persistence.ModelConfigurations;
 
-public class OutboxMessageModelConfiguration : IEntityTypeConfiguration<OutboxMessage>
+public sealed class OutboxMessageModelConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {
     public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {
