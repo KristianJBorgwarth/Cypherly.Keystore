@@ -15,7 +15,7 @@ public static class PersistenceConfiguration
     {
         services.AddDbContext<KeystoreDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("ConnectionString"),
+            options.UseNpgsql(configuration.GetConnectionString("KeystoreDbConnectionString"),
                 sqlOptions =>
                 {
                     sqlOptions.MigrationsAssembly(assembly.FullName);

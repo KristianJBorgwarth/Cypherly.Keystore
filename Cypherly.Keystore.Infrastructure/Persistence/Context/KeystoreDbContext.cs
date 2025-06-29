@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cypherly.Keystore.Infrastructure.Persistence.Context;
 
-public class KeystoreDbContext(DbContextOptions options) : DbContext {
+public class KeystoreDbContext(DbContextOptions options) : DbContext(options)
+{
 
     public DbSet<KeyBundle> KeyBundle { get; init; }
     public DbSet<PreKey> OneTimePreKey { get; init; }

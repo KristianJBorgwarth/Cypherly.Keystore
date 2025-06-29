@@ -52,8 +52,10 @@ builder.Services.AddInfrastructure(configuration, Assembly.Load("Cypherly.Keysto
 
 builder.Services.AddOpenApi();
 
-
 var app = builder.Build();
+app.UseCors("Development");
+
+#region Scalar
 
 if (app.Environment.IsDevelopment())
 {
@@ -67,9 +69,13 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseCors("Development");
+#endregion
 
-app.UseHttpsRedirection();
+
+if (env.IsProduction())
+{
+    app.Services.ApplyPendingMigrations();
+}
 
 try
 {
