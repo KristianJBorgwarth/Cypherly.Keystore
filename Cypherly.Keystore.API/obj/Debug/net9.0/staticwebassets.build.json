@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "KTWVkl9aloRXuky9MHCHVnihRZQy4HijTPjvbWQfv2g=",
+  "Source": "Cypherly.Keystore.API",
+  "BasePath": "_content/Cypherly.Keystore.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
