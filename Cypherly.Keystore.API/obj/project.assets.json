@@ -1215,19 +1215,19 @@
           }
         }
       },
-      "OpenTelemetry.Exporter.Prometheus/1.3.0-rc.2": {
+      "OpenTelemetry.Exporter.Prometheus.AspNetCore/1.12.0-beta.1": {
         "type": "package",
         "dependencies": {
-          "OpenTelemetry": "1.3.0-rc.2"
+          "OpenTelemetry": "[1.12.0, 2.0.0)"
         },
         "compile": {
-          "lib/netcoreapp3.1/OpenTelemetry.Exporter.Prometheus.dll": {
-            "related": ".xml"
+          "lib/net9.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll": {
+            "related": ".dll-keyless.pem;.dll-keyless.sig;.xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/OpenTelemetry.Exporter.Prometheus.dll": {
-            "related": ".xml"
+          "lib/net9.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll": {
+            "related": ".dll-keyless.pem;.dll-keyless.sig;.xml"
           }
         },
         "frameworkReferences": [
@@ -4976,20 +4976,27 @@
         "opentelemetry.exporter.opentelemetryprotocol.nuspec"
       ]
     },
-    "OpenTelemetry.Exporter.Prometheus/1.3.0-rc.2": {
-      "sha512": "6jgT3feTM2vOtR9ZWEDoICEaq3Gau12Y/yP3V7nyYogd88dxol7aTvclJKnb385epSF4YS4IdUyUQwNHdWVwwg==",
+    "OpenTelemetry.Exporter.Prometheus.AspNetCore/1.12.0-beta.1": {
+      "sha512": "S34hBEn/g5TuCBhHFqR+efyQ8YIJ6BOjg7L/zPGyGAGBbQX4kY/pfiMA9BPniHXwSJqaEnbgddB6OfMEVTniug==",
       "type": "package",
-      "path": "opentelemetry.exporter.prometheus/1.3.0-rc.2",
+      "path": "opentelemetry.exporter.prometheus.aspnetcore/1.12.0-beta.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net462/OpenTelemetry.Exporter.Prometheus.dll",
-        "lib/net462/OpenTelemetry.Exporter.Prometheus.xml",
-        "lib/netcoreapp3.1/OpenTelemetry.Exporter.Prometheus.dll",
-        "lib/netcoreapp3.1/OpenTelemetry.Exporter.Prometheus.xml",
+        "LICENSE.TXT",
+        "README.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll",
+        "lib/net8.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll-keyless.pem",
+        "lib/net8.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll-keyless.sig",
+        "lib/net8.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.xml",
+        "lib/net9.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll",
+        "lib/net9.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll-keyless.pem",
+        "lib/net9.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.dll-keyless.sig",
+        "lib/net9.0/OpenTelemetry.Exporter.Prometheus.AspNetCore.xml",
         "opentelemetry-icon-color.png",
-        "opentelemetry.exporter.prometheus.1.3.0-rc.2.nupkg.sha512",
-        "opentelemetry.exporter.prometheus.nuspec"
+        "opentelemetry.exporter.prometheus.aspnetcore.1.12.0-beta.1.nupkg.sha512",
+        "opentelemetry.exporter.prometheus.aspnetcore.nuspec"
       ]
     },
     "OpenTelemetry.Extensions.Hosting/1.12.0": {
@@ -8048,7 +8055,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 9.0.6",
       "OpenTelemetry >= 1.12.0",
       "OpenTelemetry.Exporter.OpenTelemetryProtocol >= 1.12.0",
-      "OpenTelemetry.Exporter.Prometheus >= 1.3.0-rc.2",
+      "OpenTelemetry.Exporter.Prometheus.AspNetCore >= 1.12.0-beta.1",
       "OpenTelemetry.Extensions.Hosting >= 1.12.0",
       "OpenTelemetry.Instrumentation.AspNetCore >= 1.12.0",
       "OpenTelemetry.Instrumentation.Http >= 1.12.0",
@@ -8135,9 +8142,9 @@
             "target": "Package",
             "version": "[1.12.0, )"
           },
-          "OpenTelemetry.Exporter.Prometheus": {
+          "OpenTelemetry.Exporter.Prometheus.AspNetCore": {
             "target": "Package",
-            "version": "[1.3.0-rc.2, )"
+            "version": "[1.12.0-beta.1, )"
           },
           "OpenTelemetry.Extensions.Hosting": {
             "target": "Package",

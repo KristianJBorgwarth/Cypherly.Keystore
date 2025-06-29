@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zMYDTH8ZecI=",
+  "dgSpecHash": "iK2zlMfsI5Q=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Cypherly\\Cypherly.Keystore\\Cypherly.Keystore.API\\Cypherly.Keystore.API.csproj",
   "expectedPackageFiles": [
@@ -62,7 +62,7 @@
     "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.api\\1.12.0\\opentelemetry.api.1.12.0.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.api.providerbuilderextensions\\1.12.0\\opentelemetry.api.providerbuilderextensions.1.12.0.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.exporter.opentelemetryprotocol\\1.12.0\\opentelemetry.exporter.opentelemetryprotocol.1.12.0.nupkg.sha512",
-    "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.exporter.prometheus\\1.3.0-rc.2\\opentelemetry.exporter.prometheus.1.3.0-rc.2.nupkg.sha512",
+    "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.exporter.prometheus.aspnetcore\\1.12.0-beta.1\\opentelemetry.exporter.prometheus.aspnetcore.1.12.0-beta.1.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.extensions.hosting\\1.12.0\\opentelemetry.extensions.hosting.1.12.0.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.instrumentation.aspnetcore\\1.12.0\\opentelemetry.instrumentation.aspnetcore.1.12.0.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\opentelemetry.instrumentation.http\\1.12.0\\opentelemetry.instrumentation.http.1.12.0.nupkg.sha512",
