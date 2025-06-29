@@ -28,6 +28,7 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
     .CreateLogger();
 
+
 builder.Host.UseSerilog();
 
 #endregion

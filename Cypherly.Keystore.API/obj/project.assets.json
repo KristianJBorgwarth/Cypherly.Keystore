@@ -1447,6 +1447,22 @@
           }
         }
       },
+      "Serilog.Sinks.Grafana.Loki/8.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "2.12.0"
+        },
+        "compile": {
+          "lib/net7.0/Serilog.Sinks.Grafana.Loki.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Serilog.Sinks.Grafana.Loki.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Serilog.Sinks.GrafanaLoki/1.1.2": {
         "type": "package",
         "dependencies": {
@@ -4999,6 +5015,28 @@
         "serilog.sinks.file.nuspec"
       ]
     },
+    "Serilog.Sinks.Grafana.Loki/8.3.1": {
+      "sha512": "H2hpUW14NROPPoYuuM0iHX7h7LglORpr9ZswrEfoRQH31cBI8sDZxkKCSCfoSsM6eToAJjAQyVqGaDwfSYaaNw==",
+      "type": "package",
+      "path": "serilog.sinks.grafana.loki/8.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "lib/net5.0/Serilog.Sinks.Grafana.Loki.dll",
+        "lib/net5.0/Serilog.Sinks.Grafana.Loki.xml",
+        "lib/net6.0/Serilog.Sinks.Grafana.Loki.dll",
+        "lib/net6.0/Serilog.Sinks.Grafana.Loki.xml",
+        "lib/net7.0/Serilog.Sinks.Grafana.Loki.dll",
+        "lib/net7.0/Serilog.Sinks.Grafana.Loki.xml",
+        "lib/netstandard2.0/Serilog.Sinks.Grafana.Loki.dll",
+        "lib/netstandard2.0/Serilog.Sinks.Grafana.Loki.xml",
+        "serilog-sink-nuget.png",
+        "serilog.sinks.grafana.loki.8.3.1.nupkg.sha512",
+        "serilog.sinks.grafana.loki.nuspec"
+      ]
+    },
     "Serilog.Sinks.GrafanaLoki/1.1.2": {
       "sha512": "lUmwhrjY+zFluEzfuXmzLq5x75fcaBuPH/RsV56l9sKndA2LL7BkSYWqjc5BgUhBVjEJC6QC+xXk3j/rJ8lGnQ==",
       "type": "package",
@@ -7469,7 +7507,7 @@
       "Microsoft.AspNetCore.OpenApi >= 9.0.6",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.6",
       "Scalar.AspNetCore >= 2.5.3",
-      "Serilog.Sinks.GrafanaLoki >= 1.1.2",
+      "Serilog.Sinks.Grafana.Loki >= 8.3.1",
       "Serilog.Sinks.Seq >= 9.0.0"
     ]
   },
@@ -7545,9 +7583,9 @@
             "target": "Package",
             "version": "[2.5.3, )"
           },
-          "Serilog.Sinks.GrafanaLoki": {
+          "Serilog.Sinks.Grafana.Loki": {
             "target": "Package",
-            "version": "[1.1.2, )"
+            "version": "[8.3.1, )"
           },
           "Serilog.Sinks.Seq": {
             "target": "Package",

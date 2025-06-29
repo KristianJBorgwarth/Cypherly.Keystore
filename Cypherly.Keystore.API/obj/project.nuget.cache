@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RFLAwcPQGtg=",
+  "dgSpecHash": "ZHH2jgIenhE=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Cypherly\\Cypherly.Keystore\\Cypherly.Keystore.API\\Cypherly.Keystore.API.csproj",
   "expectedPackageFiles": [
@@ -82,6 +82,7 @@
     "C:\\Users\\fich2\\.nuget\\packages\\serilog.sinks.console\\6.0.1-dev-00953\\serilog.sinks.console.6.0.1-dev-00953.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\serilog.sinks.debug\\3.0.0\\serilog.sinks.debug.3.0.0.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\serilog.sinks.file\\6.0.0\\serilog.sinks.file.6.0.0.nupkg.sha512",
+    "C:\\Users\\fich2\\.nuget\\packages\\serilog.sinks.grafana.loki\\8.3.1\\serilog.sinks.grafana.loki.8.3.1.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\serilog.sinks.grafanaloki\\1.1.2\\serilog.sinks.grafanaloki.1.1.2.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\serilog.sinks.seq\\9.0.0\\serilog.sinks.seq.9.0.0.nupkg.sha512",
     "C:\\Users\\fich2\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
