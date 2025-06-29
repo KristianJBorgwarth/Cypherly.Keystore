@@ -1,4 +1,4 @@
-﻿using Cypherly.Keystore.Domain.Common;
+﻿using Cypherly.Keystore.Domain.Abstractions;
 using MediatR;
 
 namespace Cypherly.Keystore.Application.Abstractions;

@@ -1,6 +1,6 @@
 ﻿// ReSharper disable ReturnTypeCanBeEnumerable.Global
 
-namespace Cypherly.Keystore.Domain.Common;
+namespace Cypherly.Keystore.Domain.Abstractions;
 
 public abstract class AggregateRoot(Guid id) : Entity(id)
 {

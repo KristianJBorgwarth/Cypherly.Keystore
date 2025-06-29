@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Cypherly.Keystore.Domain.Common;
+namespace Cypherly.Keystore.Domain.Abstractions;
 
 public interface IDomainEvent : INotification
 {

@@ -1,5 +1,5 @@
 ﻿// ReSharper disable ConvertConstructorToMemberInitializers
-namespace Cypherly.Keystore.Domain.Common;
+namespace Cypherly.Keystore.Domain.Abstractions;
 
 public abstract class Entity
 {
