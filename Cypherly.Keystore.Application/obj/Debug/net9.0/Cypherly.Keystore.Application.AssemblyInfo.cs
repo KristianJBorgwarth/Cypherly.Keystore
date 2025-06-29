@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cypherly.Keystore.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c33c3af8e2e35cc99e73f18fa70936fb0d596e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ade865db730cff68534caccb833a56f8936a78a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cypherly.Keystore.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cypherly.Keystore.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -7469,6 +7469,7 @@
       "Microsoft.AspNetCore.OpenApi >= 9.0.6",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.6",
       "Scalar.AspNetCore >= 2.5.3",
+      "Serilog.Sinks.GrafanaLoki >= 1.1.2",
       "Serilog.Sinks.Seq >= 9.0.0"
     ]
   },
@@ -7543,6 +7544,10 @@
           "Scalar.AspNetCore": {
             "target": "Package",
             "version": "[2.5.3, )"
+          },
+          "Serilog.Sinks.GrafanaLoki": {
+            "target": "Package",
+            "version": "[1.1.2, )"
           },
           "Serilog.Sinks.Seq": {
             "target": "Package",

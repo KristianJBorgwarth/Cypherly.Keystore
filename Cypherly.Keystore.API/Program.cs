@@ -76,8 +76,6 @@ if (app.Environment.IsDevelopment())
 
 #endregion
 
-
-
 if (env.IsProduction())
 {
     app.Services.ApplyPendingMigrations();
