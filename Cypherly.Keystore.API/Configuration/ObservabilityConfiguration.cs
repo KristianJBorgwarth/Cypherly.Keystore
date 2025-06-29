@@ -1,4 +1,5 @@
-﻿using OpenTelemetry.Metrics;
+﻿using MassTransit.Monitoring;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;            // <-- critical
 using OpenTelemetry.Trace;
 
@@ -23,6 +24,7 @@ public static class ObservabilityConfiguration
 
             .WithMetrics(b => b
                 .AddRuntimeInstrumentation()
+                .AddMeter(InstrumentationOptions.MeterName)
                 .AddAspNetCoreInstrumentation()
                 .AddOtlpExporter());
 
