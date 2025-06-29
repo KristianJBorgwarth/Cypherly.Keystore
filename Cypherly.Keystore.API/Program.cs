@@ -64,6 +64,7 @@ app.UseCors("Development");
 
 #region Scalar
 
+app.MapPrometheusScrapingEndpoint();
 app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
