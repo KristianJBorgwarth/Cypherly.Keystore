@@ -1,4 +1,4 @@
-﻿using Cypherly.Keystore.Domain.Common.Result;
+﻿using Cypherly.Keystore.Domain.Common;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;

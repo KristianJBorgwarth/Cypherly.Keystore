@@ -1,4 +1,5 @@
-﻿namespace Cypherly.Keystore.Domain.Common.Result;
+﻿
+namespace Cypherly.Keystore.Domain.Common;
 
 public sealed record Error
 {

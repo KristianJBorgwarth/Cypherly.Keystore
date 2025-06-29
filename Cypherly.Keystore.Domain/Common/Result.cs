@@ -1,4 +1,6 @@
-﻿namespace Cypherly.Keystore.Domain.Common.Result;
+﻿// ReSharper disable MemberCanBeProtected.Global
+// ReSharper disable MemberCanBePrivate.Global
+namespace Cypherly.Keystore.Domain.Common;
 
 public class Result
 {
