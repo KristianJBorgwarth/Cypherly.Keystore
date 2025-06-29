@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cypherly.Keystore.Infrastructure.Configuration;
 
-public static class PersistenceConfiguration
+internal static class PersistenceConfiguration
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration, Assembly assembly)
     {

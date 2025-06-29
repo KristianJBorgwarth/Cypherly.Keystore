@@ -3,8 +3,8 @@ services:
     image: postgres:latest
     container_name: keystore-postgres
     environment:
-      POSTGRES_USER: root-test
-      POSTGRES_PASSWORD: root-test
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
     volumes:
@@ -14,8 +14,8 @@ services:
     image: rabbitmq:3-management
     container_name: keystore-rabbit
     environment:
-      RABBITMQ_DEFAULT_USER: root-test
-      RABBITMQ_DEFAULT_PASS: root-test
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: root
     ports:
       - "5672:5672"
       - "15672:15672"

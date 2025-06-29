@@ -9,6 +9,7 @@ public static class InfrastructureConfiguration
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, Assembly assembly)
     {
         services.AddPersistence(configuration, assembly);
+        services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
         return services;
     }
 }
