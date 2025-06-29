@@ -1,6 +1,7 @@
-﻿using MassTransit.Monitoring;
+﻿using MassTransit.Logging;
+using MassTransit.Monitoring;
 using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;            // <-- critical
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 namespace Cypherly.Keystore.API.Configuration;
@@ -19,14 +20,15 @@ public static class ObservabilityConfiguration
             .WithTracing(b => b
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
-                .AddSource(MassTransit.Logging.DiagnosticHeaders.DefaultListenerName)
+                .AddSource(DiagnosticHeaders.DefaultListenerName)
                 .AddOtlpExporter())
 
             .WithMetrics(b => b
                 .AddRuntimeInstrumentation()
-                .AddMeter(InstrumentationOptions.MeterName)
                 .AddAspNetCoreInstrumentation()
-                .AddOtlpExporter());
+                .AddHttpClientInstrumentation()
+                .AddMeter(InstrumentationOptions.MeterName)
+                .AddPrometheusExporter());
 
         return services;
     }
