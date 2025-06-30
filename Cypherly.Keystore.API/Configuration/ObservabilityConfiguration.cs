@@ -8,7 +8,7 @@ namespace Cypherly.Keystore.API.Configuration;
 
 public static class ObservabilityConfiguration
 {
-    public static IServiceCollection AddObservability(this IServiceCollection services)
+    public static IServiceCollection AddObservability(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOpenTelemetry()
             .ConfigureResource(r => r

@@ -30,7 +30,7 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-builder.Services.AddObservability();
+builder.Services.AddObservability(configuration);
 
 #endregion
 
@@ -94,3 +94,6 @@ finally
 {
     Log.CloseAndFlush();
 }
+
+// Required for integration tests
+public partial class Program { }

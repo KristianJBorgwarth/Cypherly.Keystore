@@ -15,7 +15,6 @@ sealed internal class CreateKeyBundleRequest
     public required IReadOnlyCollection<PreKeyDto> PreKeys { get; init; }
     public required DateTimeOffset SignedPreKeyTimestamp { get; init; }
 
-
     public CreateKeyBundleCommand MapToCommand(Guid userId) => new()
     {
         UserId = userId,
