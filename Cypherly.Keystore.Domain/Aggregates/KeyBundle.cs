@@ -18,10 +18,10 @@ public sealed class KeyBundle : AggregateRoot
     public DateTime SignedPreKeyTimestamp { get; private set; }
 
     private readonly List<PreKey> _preKeys = [];
-    public IReadOnlyCollection<PreKey> PreKeys  => _preKeys.AsReadOnly();
+    public IReadOnlyCollection<PreKey> PreKeys => _preKeys.AsReadOnly();
 
     // For EF Core
-    private KeyBundle() : base(Guid.Empty) {}
+    private KeyBundle() : base(Guid.Empty) { }
 
     public KeyBundle(
         Guid id,
@@ -56,8 +56,8 @@ public sealed class KeyBundle : AggregateRoot
 
     public PreKey? ConsumePreKey(int keyId)
     {
-        var pk = _preKeys.Find(k=> k.KeyId == keyId && k.Consumed is false);
-        if(pk is null) return null;
+        var pk = _preKeys.Find(k => k.KeyId == keyId && k.Consumed is false);
+        if (pk is null) return null;
 
         pk.Consume();
         return pk;

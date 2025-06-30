@@ -15,7 +15,7 @@ public sealed class PreKeyModelConfiguration : IEntityTypeConfiguration<PreKey>
         builder.Property(pk => pk.KeyBundleId)
             .IsRequired();
 
-        builder.Property(x=> x.PublicKey)
+        builder.Property(x => x.PublicKey)
             .IsRequired();
 
         builder.Property(pk => pk.KeyId)

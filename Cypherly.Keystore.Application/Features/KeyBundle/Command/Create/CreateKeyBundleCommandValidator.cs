@@ -17,7 +17,7 @@ public sealed class CreateKeyBundleCommandValidator : AbstractValidator<CreateKe
             .Must(x => x.Length > 0).WithMessage("Identity key must not be empty.");
 
         RuleFor(x => x.RegistrationId)
-            .Must(x=> x > 0).WithMessage("Registration ID must be greater than 0.");
+            .Must(x => x > 0).WithMessage("Registration ID must be greater than 0.");
 
         RuleFor(x => x.SignedPrekeyId)
             .GreaterThan(0).WithMessage("Signed Prekey ID must be greater than 0.");

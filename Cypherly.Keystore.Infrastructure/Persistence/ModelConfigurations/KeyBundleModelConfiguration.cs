@@ -15,13 +15,13 @@ public sealed class KeyBundleModelConfiguration : IEntityTypeConfiguration<KeyBu
         builder.Property(kb => kb.AccessKey)
             .IsRequired();
 
-        builder.HasIndex(kb=> kb.AccessKey)
+        builder.HasIndex(kb => kb.AccessKey)
             .IsUnique();
 
         builder.Property(kb => kb.IdentityKey)
             .IsRequired();
 
-        builder.Property(kb=> kb.RegistrationId)
+        builder.Property(kb => kb.RegistrationId)
             .IsRequired();
 
         builder.Property(kb => kb.SignedPrekeyId)
@@ -30,7 +30,7 @@ public sealed class KeyBundleModelConfiguration : IEntityTypeConfiguration<KeyBu
         builder.Property(kb => kb.SignedPreKeySignature)
             .IsRequired();
 
-        builder.Property(kb=> kb.SignedPreKeyTimestamp)
+        builder.Property(kb => kb.SignedPreKeyTimestamp)
             .IsRequired();
 
         builder.Property(kb => kb.SignedPreKeyPublic)
