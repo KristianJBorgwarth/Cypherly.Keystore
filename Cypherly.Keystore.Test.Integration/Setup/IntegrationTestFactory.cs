@@ -1,4 +1,5 @@
 ﻿using Cypherly.Keystore.Test.Integration.Setup.TestAuth;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -22,8 +23,8 @@ public class IntegrationTestFactory<TProgram, TDbContext> : WebApplicationFactor
         {
 
             #region Database Configuration
-            var descriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<TDbContext>));
+
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<TDbContext>));
 
             if (descriptor != null)
             {
@@ -38,11 +39,30 @@ public class IntegrationTestFactory<TProgram, TDbContext> : WebApplicationFactor
 
             #endregion
 
+            #region RabbitMq Configuration
+
+            var rmqDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IBusControl));
+
+            if (rmqDescriptor is not null)
+                services.Remove(rmqDescriptor);
+
+            services.AddMassTransitTestHarness(cfg =>
+            {
+                cfg.AddConsumers(typeof(TProgram).Assembly);
+            });
+
+            #endregion
+
+            #region Authentication and Authorization Configuration
+
             services.AddAuthentication("Test").AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("Test", options => { });
 
             services.AddAuthorizationBuilder()
                 .AddPolicy("AdminOnly", policy => policy.RequireAssertion(_ => true))
                 .AddPolicy("User", policy => policy.RequireAssertion(_ => true));
+
+            #endregion
+
         });
     }
 
