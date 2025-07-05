@@ -3,9 +3,9 @@ using Cypherly.Keystore.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cypherly.Keystore.Infrastructure.Configuration;
+namespace Cypherly.Keystore.Infrastructure.Extensions;
 
-public static class InfrastructureConfiguration
+public static class InfrastructureExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, Assembly assembly)
     {

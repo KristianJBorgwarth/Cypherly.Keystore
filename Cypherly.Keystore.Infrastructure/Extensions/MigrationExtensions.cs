@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 // ReSharper disable ConvertToUsingDeclaration
 
-namespace Cypherly.Keystore.Infrastructure.Configuration;
+namespace Cypherly.Keystore.Infrastructure.Extensions;
 
 public static class ApplyMigrations
 {

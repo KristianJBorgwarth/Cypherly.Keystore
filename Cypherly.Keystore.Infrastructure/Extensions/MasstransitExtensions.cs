@@ -7,9 +7,9 @@ using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Cypherly.Keystore.Infrastructure.Configuration;
+namespace Cypherly.Keystore.Infrastructure.Extensions;
 
-public static class MassTransitConfiguration
+public static class MasstransitExtensions
 {
     internal static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Assembly assembly)
     {

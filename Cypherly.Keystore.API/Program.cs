@@ -1,13 +1,13 @@
 using System.Reflection;
 using Cypherly.Keystore.API.Extensions;
-using Cypherly.Keystore.Application.Configuration;
-using Cypherly.Keystore.Infrastructure.Configuration;
+using Cypherly.Keystore.Application.Extensions;
+using Cypherly.Keystore.Infrastructure.Extensions;
 using Scalar.AspNetCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region Configuration
+#region Extensions
 
 var env = builder.Environment;
 

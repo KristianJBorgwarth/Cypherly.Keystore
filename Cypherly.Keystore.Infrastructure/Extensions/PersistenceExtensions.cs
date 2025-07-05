@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cypherly.Keystore.Infrastructure.Configuration;
+namespace Cypherly.Keystore.Infrastructure.Extensions;
 
-internal static class PersistenceConfiguration
+internal static class PersistenceExtensions
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration, Assembly assembly)
     {

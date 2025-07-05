@@ -4,9 +4,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cypherly.Keystore.Application.Configuration;
+namespace Cypherly.Keystore.Application.Extensions;
 
-public static class ApplicationConfiguration
+public static class ApplicationExtensions
 {
     public static void AddApplication(this IServiceCollection services, Assembly assembly)
     {

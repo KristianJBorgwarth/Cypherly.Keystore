@@ -22,7 +22,7 @@ public class IntegrationTestFactory<TProgram, TDbContext> : WebApplicationFactor
         builder.ConfigureServices(services =>
         {
 
-            #region Database Configuration
+            #region Database Extensions
 
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<TDbContext>));
 
@@ -39,7 +39,7 @@ public class IntegrationTestFactory<TProgram, TDbContext> : WebApplicationFactor
 
             #endregion
 
-            #region RabbitMq Configuration
+            #region RabbitMq Extensions
 
             var rmqDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IBusControl));
 
@@ -53,7 +53,7 @@ public class IntegrationTestFactory<TProgram, TDbContext> : WebApplicationFactor
 
             #endregion
 
-            #region Authentication and Authorization Configuration
+            #region Authentication and Authorization Extensions
 
             services.AddAuthentication("Test").AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("Test", options => { });
 
