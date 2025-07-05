@@ -1,5 +1,5 @@
 using System.Reflection;
-using Cypherly.Keystore.API.Configuration;
+using Cypherly.Keystore.API.Extensions;
 using Cypherly.Keystore.Application.Configuration;
 using Cypherly.Keystore.Infrastructure.Configuration;
 using Scalar.AspNetCore;

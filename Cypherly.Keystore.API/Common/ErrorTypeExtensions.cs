@@ -1,6 +1,6 @@
 ﻿using Cypherly.Keystore.Domain.Abstractions;
 
-namespace Cypherly.Keystore.API.Extensions;
+namespace Cypherly.Keystore.API.Common;
 
 public static class ErrorTypeExtensions
 {

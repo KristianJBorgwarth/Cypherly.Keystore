@@ -1,4 +1,4 @@
-﻿using Cypherly.Keystore.API.Extensions;
+﻿using Cypherly.Keystore.API.Common;
 using Cypherly.Keystore.API.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

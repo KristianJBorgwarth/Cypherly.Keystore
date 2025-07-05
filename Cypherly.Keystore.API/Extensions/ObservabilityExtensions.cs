@@ -4,9 +4,9 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace Cypherly.Keystore.API.Configuration;
+namespace Cypherly.Keystore.API.Extensions;
 
-public static class ObservabilityConfiguration
+public static class ObservabilityExtensions
 {
     public static IServiceCollection AddObservability(this IServiceCollection services, IConfiguration configuration)
     {

@@ -1,9 +1,9 @@
 ﻿using Cypherly.Keystore.API.Endpoints;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Cypherly.Keystore.API.Configuration;
+namespace Cypherly.Keystore.API.Extensions;
 
-public static class EndpointConfiguration
+public static class EndpointExtensions
 {
     public static IServiceCollection AddEndpoints(this IServiceCollection services)
     {
