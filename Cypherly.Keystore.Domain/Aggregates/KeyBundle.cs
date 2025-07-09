@@ -49,9 +49,9 @@ public sealed class KeyBundle : AggregateRoot
         SignedPreKeySignature = sig ?? throw new ArgumentNullException(nameof(sig));
     }
 
-    public void UploadPreKeys(IReadOnlyCollection<PreKey> prekeys)
+    public void UploadPreKeys(IReadOnlyCollection<PreKey> preKeys)
     {
-        _preKeys.AddRange(prekeys);
+        _preKeys.AddRange(preKeys);
     }
 
     public PreKey? ConsumePreKey(int keyId)

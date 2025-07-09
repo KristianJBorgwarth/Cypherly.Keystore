@@ -7,9 +7,16 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
+COPY nuget.config ./nuget.config
+RUN --mount=type=secret,id=nuget_token \
+    sed -i "s|%NUGET_TOKEN%|$(cat /run/secrets/nuget_token)|g" nuget.config
+
 COPY ["Cypherly.Keystore.API/Cypherly.Keystore.API.csproj", "Cypherly.Keystore.API/"]
-RUN dotnet restore "Cypherly.Keystore.API/Cypherly.Keystore.API.csproj"
+RUN dotnet restore "Cypherly.Keystore.API/Cypherly.Keystore.API.csproj" --configfile ./nuget.config
+
 COPY . .
+
 WORKDIR "/src/Cypherly.Keystore.API"
 RUN dotnet build "./Cypherly.Keystore.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

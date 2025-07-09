@@ -15,6 +15,10 @@ jobs:
           dotnet-version: '9.0.x'
           quality: preview
 
+      - name: nuget.config token
+        run: |
+          sed -i "s|%NUGET_TOKEN%|${{ secrets.NUGET_TOKEN }}|g" nuget.config
+
       - run: dotnet restore
       - run: dotnet build --no-restore
       - run: dotnet test --no-build --verbosity normal
