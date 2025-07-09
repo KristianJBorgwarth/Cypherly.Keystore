@@ -15,9 +15,6 @@ jobs:
           dotnet-version: '9.0.x'
           quality: preview
 
-      - name: Add GitHub NuGet source
-        run: dotnet nuget add source "https://nuget.pkg.github.com/KristianJBorgwarth/index.json" --name "github" --username ${{ github.actor }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text
-
       - run: dotnet restore
       - run: dotnet build --no-restore
       - run: dotnet test --no-build --verbosity normal
