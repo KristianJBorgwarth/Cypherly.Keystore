@@ -17,7 +17,7 @@ jobs:
 
       - name: nuget.config token
         run: |
-          sed -i "s|%NUGET_TOKEN%|${{ secrets.GH_PACKAGES_TOKEN }}|g" nuget.config
+          sed -i "s|%NUGET_TOKEN%|${{ secrets.NUGET_TOKEN }}|g" nuget.config
 
       - run: dotnet restore --configfile nuget.config
       - run: dotnet build --no-restore
