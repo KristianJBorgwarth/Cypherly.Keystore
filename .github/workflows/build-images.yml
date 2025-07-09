@@ -29,7 +29,7 @@ jobs:
       - name: Build and Push Docker Image for Cypherly.Keystore.API
         run: |
           docker buildx build --platform linux/amd64 \
+            --secret id=nuget_token,src=nuget_token.txt \
             -t ${{ secrets.DOCKER_USERNAME }}/dev-cypherly-keystore-api:latest \
             -f Cypherly.Keystore.API/Dockerfile . \
-            --push \
-            --secret id=nuget_token,src=nuget_token.txt
+            --push
