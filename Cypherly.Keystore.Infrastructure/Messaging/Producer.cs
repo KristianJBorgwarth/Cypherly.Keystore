@@ -1,5 +1,4 @@
-﻿using Cypherly.Keystore.Application.Contracts;
-using Cypherly.Keystore.Application.Messages;
+﻿using Cypherly.Message.Contracts.Abstractions;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +8,7 @@ public sealed class Producer<TMessage>(
     IPublishEndpoint publishEndpoint,
     ILogger<Producer<TMessage>> logger)
     : IProducer<TMessage>
-    where TMessage : BaseMessage
+    where TMessage : IBaseMessage
 {
 
     public async Task PublishMessageAsync(TMessage message, CancellationToken cancellationToken)

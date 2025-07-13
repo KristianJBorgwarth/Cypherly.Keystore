@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using Cypherly.Keystore.Application.Contracts;
-using Cypherly.Keystore.Application.Messages;
 using Cypherly.Keystore.Infrastructure.Messaging;
 using Cypherly.Keystore.Infrastructure.Settings;
+using Cypherly.Message.Contracts.Abstractions;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -56,7 +55,7 @@ public static class MasstransitExtensions
     /// <typeparam name="TMessage">the type the producer will handle. TMessage type should be of type <see cref="BaseMessage"/></typeparam>
     /// <returns><see cref="IServiceCollection"/></returns>
     private static IServiceCollection AddProducer<TMessage>(this IServiceCollection services)
-        where TMessage : BaseMessage
+        where TMessage : IBaseMessage
     {
         services.AddScoped<IProducer<TMessage>, Producer<TMessage>>();
         return services;
