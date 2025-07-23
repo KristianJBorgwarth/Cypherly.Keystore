@@ -10,7 +10,7 @@ namespace Cypherly.Keystore.Infrastructure.Extensions;
 
 public static class MasstransitExtensions
 {
-    internal static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Assembly assembly)
+    internal static void AddMassTransitWithRabbitMq(this IServiceCollection services, Assembly assembly)
     {
 
         services.AddMassTransit(x =>
@@ -44,15 +44,13 @@ public static class MasstransitExtensions
                 cfg.ConfigureEndpoints(context);
             });
         });
-
-        return services;
     }
 
     /// <summary>
     /// Add a <see cref="Producer{TMessage}"/> for a specific message type to the service collection
     /// </summary>
     /// <param name="services">the collection producer will be added to</param>
-    /// <typeparam name="TMessage">the type the producer will handle. TMessage type should be of type <see cref="BaseMessage"/></typeparam>
+    /// <typeparam name="TMessage">the type the producer will handle. TMessage type should be of type <see cref="IBaseMessage"/></typeparam>
     /// <returns><see cref="IServiceCollection"/></returns>
     private static IServiceCollection AddProducer<TMessage>(this IServiceCollection services)
         where TMessage : IBaseMessage
