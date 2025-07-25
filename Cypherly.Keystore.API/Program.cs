@@ -56,6 +56,7 @@ builder.Services.AddInfrastructure(configuration, Assembly.Load("Cypherly.Keysto
 builder.Services.AddEndpoints();
 builder.Services.AddOpenApi();
 
+
 var app = builder.Build();
 
 app.RegisterMinimalEndpoints();
@@ -80,6 +81,9 @@ if (env.IsProduction())
 {
     app.Services.ApplyPendingMigrations();
 }
+
+app.MapPrometheusScrapingEndpoint();
+app.UseSerilogRequestLogging();
 
 try
 {

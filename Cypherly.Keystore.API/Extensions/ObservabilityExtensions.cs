@@ -8,7 +8,7 @@ namespace Cypherly.Keystore.API.Extensions;
 
 public static class ObservabilityExtensions
 {
-    public static IServiceCollection AddObservability(this IServiceCollection services, IConfiguration configuration)
+    public static void AddObservability(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddOpenTelemetry()
             .ConfigureResource(r => r
@@ -20,6 +20,9 @@ public static class ObservabilityExtensions
             .WithTracing(b => b
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
+                .AddEntityFrameworkCoreInstrumentation()
+                .AddRedisInstrumentation()
+                .AddQuartzInstrumentation()
                 .AddSource(DiagnosticHeaders.DefaultListenerName)
                 .AddOtlpExporter())
 
@@ -29,7 +32,5 @@ public static class ObservabilityExtensions
                 .AddHttpClientInstrumentation()
                 .AddMeter(InstrumentationOptions.MeterName)
                 .AddPrometheusExporter());
-
-        return services;
     }
 }
