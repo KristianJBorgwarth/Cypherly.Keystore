@@ -1,13 +1,13 @@
 ﻿using AutoFixture;
-using Cypherly.Keystore.Application.Abstractions;
-using Cypherly.Keystore.Application.Contracts;
-using Cypherly.Keystore.Application.Features.KeyBundle.Command.Create;
-using Cypherly.Keystore.Infrastructure.Persistence.Context;
+using Keystore.Infrastructure.Persistence.Context;
 using Cypherly.Keystore.Test.Integration.Setup;
 using FluentAssertions;
+using Keystore.Application.Abstractions;
+using Keystore.Application.Contracts;
+using Keystore.Application.Features.KeyBundle.Command.Create;
+using Keystore.Test.Integration.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace Cypherly.Keystore.Test.Integration.CommandTest;
 

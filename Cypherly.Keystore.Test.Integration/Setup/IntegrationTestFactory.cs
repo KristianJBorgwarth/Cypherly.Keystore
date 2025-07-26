@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.PostgreSql;
 
-namespace Cypherly.Keystore.Test.Integration.Setup;
+namespace Keystore.Test.Integration.Setup;
 
 public class IntegrationTestFactory<TProgram, TDbContext> : WebApplicationFactory<TProgram>, IAsyncLifetime
     where TProgram : class where TDbContext : DbContext

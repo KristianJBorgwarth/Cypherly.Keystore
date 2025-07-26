@@ -1,4 +1,4 @@
-﻿using Cypherly.Keystore.Infrastructure.Persistence.Context;
+﻿using Keystore.Infrastructure.Persistence.Context;
 using MassTransit.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 // ReSharper disable MemberCanBeProtected.Global
 
 #pragma warning disable CA1816
-namespace Cypherly.Keystore.Test.Integration.Setup;
+namespace Keystore.Test.Integration.Setup;
 
 [Collection("KeystoreApplication")]
 public class IntegrationTestBase : IDisposable
