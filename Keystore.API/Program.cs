@@ -86,7 +86,6 @@ app.UseSerilogRequestLogging();
 
 try
 {
-    Log.Information("Starting Cypherly.Keystore.API");
     app.Run();
 }
 catch (Exception ex)
