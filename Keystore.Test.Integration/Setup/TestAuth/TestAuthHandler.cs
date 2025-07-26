@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Cypherly.Keystore.Test.Integration.Setup.TestAuth;
+namespace Keystore.Test.Integration.Setup.TestAuth;
 
 public class TestAuthHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory loggerFactory, UrlEncoder encoder)
     : AuthenticationHandler<AuthenticationSchemeOptions>(options, loggerFactory, encoder)

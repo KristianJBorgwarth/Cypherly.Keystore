@@ -1,15 +1,14 @@
 ﻿using AutoFixture;
-using Keystore.Infrastructure.Persistence.Context;
-using Cypherly.Keystore.Test.Integration.Setup;
 using FluentAssertions;
 using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
 using Keystore.Application.Features.KeyBundle.Command.Create;
+using Keystore.Infrastructure.Persistence.Context;
 using Keystore.Test.Integration.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Cypherly.Keystore.Test.Integration.CommandTest;
+namespace Keystore.Test.Integration.CommandTest;
 
 public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
 {

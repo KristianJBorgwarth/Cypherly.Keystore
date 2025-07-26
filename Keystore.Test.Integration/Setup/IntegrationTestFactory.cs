@@ -1,4 +1,4 @@
-﻿using Cypherly.Keystore.Test.Integration.Setup.TestAuth;
+﻿using Keystore.Test.Integration.Setup.TestAuth;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
