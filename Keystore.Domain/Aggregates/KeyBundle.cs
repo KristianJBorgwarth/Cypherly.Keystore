@@ -54,9 +54,9 @@ public sealed class KeyBundle : AggregateRoot
         _preKeys.AddRange(preKeys);
     }
 
-    public PreKey? ConsumePreKey(int keyId)
+    public PreKey? ConsumePreKey()
     {
-        var pk = _preKeys.Find(k => k.KeyId == keyId && k.Consumed is false);
+        var pk = _preKeys.FirstOrDefault(k=> k.Consumed is false);
         if (pk is null) return null;
 
         pk.Consume();

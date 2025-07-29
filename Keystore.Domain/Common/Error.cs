@@ -1,5 +1,7 @@
 ﻿
-namespace Keystore.Domain.Abstractions;
+using Keystore.Domain.Abstractions;
+
+namespace Keystore.Domain.Common;
 
 public sealed record Error
 {
@@ -14,22 +16,22 @@ public sealed record Error
         Description = description;
     }
 
-    public static Error NotFound(string code, string description)
+    public static Error? NotFound(string code, string descriptionTemplate, params object[] args)
     {
-        return new Error(code, ErrorType.NotFound, description);
+        return new Error(code, ErrorType.NotFound, string.Format(descriptionTemplate, args));
     }
-
+    
     public static Error Unauthorized(string code, string description)
     {
         return new Error(code, ErrorType.Unauthorized, description);
     }
 
-    public static Error Validation(string description)
+    public static Error? Validation(string description)
     {
         return new Error("Error.Validation", ErrorType.Validation, description);
     }
 
-    public static Error Failure(string code, string description)
+    public static Error? Failure(string code, string description)
     {
         return new Error(code, ErrorType.Failure, description);
     }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Keystore.Application.Features.KeyBundle.Command.Create;
+namespace Keystore.Application.Features.KeyBundle.Commands.Create;
 
 public sealed class CreateKeyBundleCommandValidator : AbstractValidator<CreateKeyBundleCommand>
 {

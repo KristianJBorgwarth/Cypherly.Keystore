@@ -1,10 +1,10 @@
 ﻿
 using Keystore.Application.Dtos;
-using Keystore.Application.Features.KeyBundle.Command.Create;
+using Keystore.Application.Features.KeyBundle.Commands.Create;
 
 namespace Keystore.API.Requests;
 
-sealed internal class CreateKeyBundleRequest
+internal sealed class CreateKeyBundleRequest
 {
     public required Guid AccessKey { get; init; }
     public required byte[] IdentityKey { get; init; }

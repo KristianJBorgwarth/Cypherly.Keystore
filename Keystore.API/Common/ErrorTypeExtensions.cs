@@ -1,4 +1,5 @@
 ﻿using Keystore.Domain.Abstractions;
+using Keystore.Domain.Common;
 
 namespace Keystore.API.Common;
 

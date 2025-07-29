@@ -1,4 +1,5 @@
 ﻿using Keystore.Domain.Abstractions;
+using Keystore.Domain.Common;
 using MediatR;
 
 namespace Keystore.Application.Abstractions;
