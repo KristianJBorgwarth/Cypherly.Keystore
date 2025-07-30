@@ -10,22 +10,24 @@ public sealed record SessionKeysDto
     public required int SignedPrekeyId { get; init; }
     public required byte[] SignedPreKeyPublic { get; init; }
     public required byte[] SignedPreKeySignature { get; init; }
-    public required PreKeyDto PreKey { get; init; }
+    public required PreKeyDto? PreKey { get; init; }
 
-    internal static SessionKeysDto MapToSessionKeysDto(KeyBundle keyBundle, PreKey preKey)
+    internal static SessionKeysDto MapToSessionKeysDto(KeyBundle keyBundle, PreKey? preKey)
     {
-        return new SessionKeysDto()
+        return new SessionKeysDto
         {
             IdentityKey = keyBundle.IdentityKey,
             RegistrationId = keyBundle.RegistrationId,
             SignedPrekeyId = keyBundle.SignedPrekeyId,
             SignedPreKeyPublic = keyBundle.SignedPreKeyPublic,
             SignedPreKeySignature = keyBundle.SignedPreKeySignature,
-            PreKey = new PreKeyDto
-            {
-                KeyId = preKey.KeyId,
-                PublicKey = preKey.PublicKey,
-            }
+            PreKey = preKey is null
+                ? null
+                : new PreKeyDto
+                {
+                    KeyId = preKey.KeyId,
+                    PublicKey = preKey.PublicKey,
+                }
         };
     }
 }

@@ -3,7 +3,7 @@ using FluentAssertions;
 using FluentValidation.TestHelper;
 using Keystore.Application.Features.KeyBundle.Commands.Create;
 
-namespace Keystore.Test.Unit.CommandTest;
+namespace Keystore.Test.Unit.ValidationTest;
 
 public class CreateKeyBundleCommandValidatorTest
 {

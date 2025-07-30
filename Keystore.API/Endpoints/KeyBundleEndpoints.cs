@@ -30,7 +30,7 @@ public sealed class KeyBundleEndpoints : IEndpoint
 
         group.MapGet("/session", async ([AsParameters] GetSessionKeysRequest req, ISender sender) =>
             {
-                var query = new GetSessionKeysQuery { AccessId = req.AccessKey };
+                var query = new GetSessionKeysQuery { AccessKey = req.AccessKey };
                 var result = await sender.Send(query);
                 return result.Success ? Results.Ok() : result.ToProblemDetails();
             })

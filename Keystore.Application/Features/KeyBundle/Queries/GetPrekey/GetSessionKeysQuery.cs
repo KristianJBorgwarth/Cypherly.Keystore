@@ -5,5 +5,5 @@ namespace Keystore.Application.Features.KeyBundle.Queries.GetPrekey;
 
 public sealed record GetSessionKeysQuery : IQuery<SessionKeysDto>
 {
-    public Guid AccessId { get; init; }
+    public Guid AccessKey { get; init; }
 }
