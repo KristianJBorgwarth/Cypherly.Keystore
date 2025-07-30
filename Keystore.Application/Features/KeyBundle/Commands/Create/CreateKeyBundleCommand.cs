@@ -1,6 +1,6 @@
 ﻿using Keystore.Application.Abstractions;
 
-namespace Keystore.Application.Features.KeyBundle.Command.Create;
+namespace Keystore.Application.Features.KeyBundle.Commands.Create;
 
 public sealed record CreateKeyBundleCommand : ICommand
 {

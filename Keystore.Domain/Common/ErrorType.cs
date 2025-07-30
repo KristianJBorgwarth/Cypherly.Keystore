@@ -1,4 +1,4 @@
-﻿namespace Keystore.Domain.Abstractions;
+﻿namespace Keystore.Domain.Common;
 
 public enum ErrorType
 {

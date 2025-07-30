@@ -1,5 +1,6 @@
 ﻿using Keystore.Domain.Abstractions;
 using FluentValidation;
+using Keystore.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

@@ -1,9 +1,10 @@
-﻿using Keystore.Domain.Abstractions;
-using Keystore.Application.Abstractions;
+﻿using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
+using Keystore.Domain.Abstractions;
+using Keystore.Domain.Common;
 using Microsoft.Extensions.Logging;
 
-namespace Keystore.Application.Features.KeyBundle.Command.Create;
+namespace Keystore.Application.Features.KeyBundle.Commands.Create;
 
 public sealed class CreateKeyBundleCommandHandler(
     IKeyBundleRepository keyBundleRepository,

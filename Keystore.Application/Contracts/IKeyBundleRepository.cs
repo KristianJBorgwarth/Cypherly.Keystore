@@ -5,5 +5,5 @@ namespace Keystore.Application.Contracts;
 
 public interface IKeyBundleRepository : IRepository<KeyBundle>
 {
-
+    Task<KeyBundle?> GetByAccessIdAsync(Guid accessKey, CancellationToken cancellationToken = default);
 }

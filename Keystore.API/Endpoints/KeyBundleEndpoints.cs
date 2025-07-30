@@ -1,7 +1,10 @@
 ﻿using Keystore.API.Common;
 using Keystore.API.Requests;
+using Keystore.Application.Dtos;
+using Keystore.Application.Features.KeyBundle.Queries.GetPrekey;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OpenTelemetry.Trace;
 
 namespace Keystore.API.Endpoints;
 
@@ -24,5 +27,15 @@ public sealed class KeyBundleEndpoints : IEndpoint
             .Produces(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status401Unauthorized);
+
+        group.MapGet("/session", async ([AsParameters] GetSessionKeysRequest req, ISender sender) =>
+            {
+                var query = new GetSessionKeysQuery { AccessKey = req.AccessKey };
+                var result = await sender.Send(query);
+                return result.Success ? Results.Ok() : result.ToProblemDetails();
+            })
+            .Produces<SessionKeysDto>()
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }

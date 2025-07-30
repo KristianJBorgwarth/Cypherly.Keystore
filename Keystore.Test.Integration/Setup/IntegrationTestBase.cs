@@ -1,4 +1,5 @@
-﻿using Keystore.Infrastructure.Persistence.Context;
+﻿using AutoFixture;
+using Keystore.Infrastructure.Persistence.Context;
 using MassTransit.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public class IntegrationTestBase : IDisposable
     protected readonly KeystoreDbContext Db;
     protected readonly HttpClient Client;
     protected readonly ITestHarness Harness;
+    protected readonly Fixture  Fixture = new();
 
     public IntegrationTestBase(IntegrationTestFactory<Program, KeystoreDbContext> factory)
     {

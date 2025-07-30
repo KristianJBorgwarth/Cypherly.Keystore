@@ -1,5 +1,6 @@
 ﻿
 using Keystore.Domain.Abstractions;
+using Keystore.Domain.Common;
 
 namespace Keystore.API.Common;
 
@@ -18,7 +19,7 @@ public static class ResultExtensions
             title: result.Error.Type.ToProblemDetailsTitle(),
             extensions: new Dictionary<string, object?>
             {
-                {"errors", new [] {result.Error}}
+                {"errors", new[] {result.Error}}
             }
         );
     }

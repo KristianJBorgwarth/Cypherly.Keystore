@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
-using Keystore.Application.Features.KeyBundle.Command.Create;
+using Keystore.Application.Features.KeyBundle.Commands.Create;
 using Keystore.Infrastructure.Persistence.Context;
 using Keystore.Test.Integration.Setup;
 using Microsoft.Extensions.DependencyInjection;

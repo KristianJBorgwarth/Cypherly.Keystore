@@ -1,24 +1,25 @@
 ﻿// ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable MemberCanBePrivate.Global
-namespace Keystore.Domain.Abstractions;
+
+namespace Keystore.Domain.Common;
 
 public class Result
 {
     public bool Success { get; private set; }
-    public Error Error { get; private set; }
+    public Error? Error { get; private set; }
 
-    protected Result(bool success, Error error)
+    protected Result(bool success, Error? error)
     {
         Success = success;
         Error = error;
     }
 
-    public static Result Fail(Error error)
+    public static Result Fail(Error? error)
     {
         return new Result(false, error);
     }
 
-    public static Result<T> Fail<T>(Error error)
+    public static Result<T> Fail<T>(Error? error)
     {
         return new Result<T>(default, false, error);
     }
@@ -51,7 +52,7 @@ public class Result<T> : Result
         private init => _value = value;
     }
 
-    protected internal Result(T? value, bool success, Error error)
+    protected internal Result(T? value, bool success, Error? error)
         : base(success, error)
     {
         Value = value;
