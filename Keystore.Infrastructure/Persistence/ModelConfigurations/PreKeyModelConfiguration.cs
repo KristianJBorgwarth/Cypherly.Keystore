@@ -13,6 +13,7 @@ public sealed class PreKeyModelConfiguration : BaseModelConfiguration<PreKey>
         builder.HasKey(pk => pk.Id);
 
         builder.Property(d => d.Id)
+            .ValueGeneratedNever()
             .HasColumnName("id");
 
         builder.Property(pk => pk.KeyBundleId)

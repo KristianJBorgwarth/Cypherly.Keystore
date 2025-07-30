@@ -60,7 +60,7 @@ public class UnitOfWork(KeystoreDbContext context) : IUnitOfWork
                 entity.Entity.SetCreated();
             }
 
-            entity.Entity.SetLastModified();
+            entity.Entity.SetLastUpdated();
         }
     }
 }

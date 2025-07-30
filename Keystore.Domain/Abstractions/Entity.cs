@@ -20,7 +20,7 @@ public abstract class Entity
 
     public void SetCreated() => Created = DateTime.UtcNow;
 
-    public void SetLastModified() => Updated = DateTime.UtcNow;
+    public void SetLastUpdated() => Updated = DateTime.UtcNow;
 
     public void SetDelete() => Deleted = DateTime.UtcNow;
 
