@@ -13,9 +13,9 @@ internal sealed class KeyBundleRepository(KeystoreDbContext context) : IKeyBundl
         return entry.Entity;
     }
 
-    public Task<KeyBundle?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<KeyBundle?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await context.KeyBundle.FirstOrDefaultAsync(x=> x.Id == id, cancellationToken);
     }
     public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {

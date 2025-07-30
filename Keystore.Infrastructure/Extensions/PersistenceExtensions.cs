@@ -6,26 +6,30 @@ using Keystore.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Keystore.Infrastructure.Extensions;
 
 internal static class PersistenceExtensions
 {
-    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration, Assembly assembly)
+    public static void AddPersistence(this IServiceCollection services, IConfiguration configuration,
+        Assembly assembly)
     {
         services.AddDbContext<KeystoreDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("KeystoreDbConnectionString"),
-                sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(assembly.FullName);
-                    sqlOptions.EnableRetryOnFailure();
-                });
+                    sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly(assembly.FullName);
+                        sqlOptions.EnableRetryOnFailure();
+                    })
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+                .LogTo(Console.WriteLine, [DbLoggerCategory.Database.Command.Name],
+                    LogLevel.Information);
         });
 
         services.AddRepositories();
-
-        return services;
     }
 
     private static void AddRepositories(this IServiceCollection services)
