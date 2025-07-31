@@ -3,6 +3,7 @@ using Keystore.API.Requests;
 using Keystore.Application.Dtos;
 using Keystore.Application.Features.KeyBundle.Commands.UploadOTPs;
 using Keystore.Application.Features.KeyBundle.Queries.GetPrekey;
+using Keystore.Application.Features.KeyBundle.Queries.GetPreKeyCount;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OpenTelemetry.Trace;
@@ -48,6 +49,18 @@ public sealed class KeyBundleEndpoints : IEndpoint
         })
         .Produces(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status401Unauthorized);
+        
+        group.MapGet("/pre-key-count", async (ISender sender, HttpContext ctx) =>
+        {
+            var tenantId = ctx.User.GetUserId();
+            var cmd = new GetPreKeyCountQuery { TenantId = tenantId };
+            var result = await sender.Send(cmd);
+            return result.Success ? Results.Ok() : result.ToProblemDetails();
+        })
+        .Produces<GetPreKeyCountDto>()
+        .ProducesProblem(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status401Unauthorized);
     }
 }
