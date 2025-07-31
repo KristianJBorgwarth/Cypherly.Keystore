@@ -13,10 +13,16 @@ internal sealed class KeyBundleRepository(KeystoreDbContext context) : IKeyBundl
         return entry.Entity;
     }
 
-    public async Task<KeyBundle?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<KeyBundle?> GetByIdAsync(Guid tenantId, CancellationToken cancellationToken = default)
     {
-        return await context.KeyBundle.FirstOrDefaultAsync(x=> x.Id == id, cancellationToken);
+        return await context.KeyBundle.FirstOrDefaultAsync(x=> x.Id == tenantId, cancellationToken);
     }
+
+    public async Task<KeyBundle?> GetByIdWithPreKeysAsync(Guid tenantId, CancellationToken cancellationToken = default)
+    {
+        return await context.KeyBundle.Include(x=> x.PreKeys).FirstOrDefaultAsync(x => x.Id == tenantId, cancellationToken);
+    }
+    
     public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
@@ -30,4 +36,5 @@ internal sealed class KeyBundleRepository(KeystoreDbContext context) : IKeyBundl
         
         return keyBundle;
     }
+
 }

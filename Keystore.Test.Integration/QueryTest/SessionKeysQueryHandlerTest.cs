@@ -109,5 +109,6 @@ public class SessionKeysQueryHandlerTest : IntegrationTestBase
         result.Value.SignedPreKeyPublic.Should().BeEquivalentTo(keyBundle.SignedPreKeyPublic);
         result.Value.SignedPreKeySignature.Should().BeEquivalentTo(keyBundle.SignedPreKeySignature);
         result.Value.PreKey.Should().BeNull();
+        Db.OutboxMessage.AsNoTracking().FirstOrDefault().Should().NotBeNull();
     }
 }
