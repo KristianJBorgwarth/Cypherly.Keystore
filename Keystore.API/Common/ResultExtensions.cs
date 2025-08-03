@@ -14,9 +14,9 @@ public static class ResultExtensions
         }
 
         return Results.Problem(
-            statusCode: result.Error.Type.ToHttpStatusCode(),
-            type: result.Error.Type.ToProblemDetailsTypeUri(),
-            title: result.Error.Type.ToProblemDetailsTitle(),
+            statusCode: result.Error?.Type.ToHttpStatusCode(),
+            type: result.Error?.Type.ToProblemDetailsTypeUri(),
+            title: result.Error?.Type.ToProblemDetailsTitle(),
             extensions: new Dictionary<string, object?>
             {
                 {"errors", new[] {result.Error}}
