@@ -19,7 +19,7 @@ public sealed class UploadOneTimePreKeysCommandHandler(
             var keyBundle = await keyBundleRepository.GetByIdAsync(request.Id, cancellationToken);
             if (keyBundle is null)
             {
-                return Result.Fail(Error.NotFound( "Key not found"));
+                return Result.Fail(Error.NotFound<Domain.Aggregates.KeyBundle>(request.Id.ToString()));
             }
             
             var preKeys = request.PreKeys.Select(x=> 
@@ -38,7 +38,7 @@ public sealed class UploadOneTimePreKeysCommandHandler(
         catch (Exception ex)
         {
             logger.Log(LogLevel.Error, ex, "Error uploading key bundle");
-            return Result.Fail(Error.Failure("An exception occurred while uploading the key bundle."));
+            return Result.Fail(Error.Failure());
         }
     }
 }

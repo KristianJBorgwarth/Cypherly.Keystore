@@ -21,7 +21,7 @@ public sealed class GetSessionKeysQueryHandler(
             var keyBundle = await keyBundleRepository.GetByAccessIdAsync(query.AccessKey, cancellationToken: cancellationToken);
             if (keyBundle is null)
             {
-                return Result.Fail<SessionKeysDto>(Error.NotFound("Key not found"));
+                return Result.Fail<SessionKeysDto>(Error.NotFound<Domain.Aggregates.KeyBundle>(query.AccessKey.ToString()));
             }
 
             var preKey = keyBundle.ConsumePreKey();
@@ -37,7 +37,7 @@ public sealed class GetSessionKeysQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception occurred while retrieving the key bundle.");
-            return Result.Fail<SessionKeysDto>(Error.Failure("Exception occured trying to get key bundle."));
+            return Result.Fail<SessionKeysDto>(Error.Failure());
         }
     }
 }

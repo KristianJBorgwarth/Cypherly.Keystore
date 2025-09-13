@@ -34,7 +34,7 @@ public sealed class CreateKeyBundleCommandHandler(
         catch (Exception ex)
         {
             logger.LogCritical("An error occurred while creating a key bundle: {Message}", ex.Message);
-            return Result.Fail(Error.Failure("Failed to create key bundle"));
+            return Result.Fail(Error.Failure());
         }
     }
 }
