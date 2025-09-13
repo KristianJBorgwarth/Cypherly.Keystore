@@ -7,22 +7,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region Extensions
-
-var env = builder.Environment;
-
-var configuration = builder.Configuration;
-configuration.AddJsonFile("appsettings.json", false, true).AddEnvironmentVariables();
-
-if (env.IsDevelopment())
-{
-    configuration.AddJsonFile($"appsettings.{Environments.Development}.json", true, true);
-    configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
-}
-
-#endregion
-
-#region Logging
+var configuration = builder.SetupConfiguration();
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
@@ -31,8 +16,6 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 builder.Services.AddObservability(configuration);
-
-#endregion
 
 #region CORS
 
@@ -45,17 +28,15 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
-
 });
 
 #endregion
 
 builder.Services.AddApplication(Assembly.Load("Keystore.Application"));
 builder.Services.AddInfrastructure(configuration, Assembly.Load("Keystore.Infrastructure"));
-
+builder.Services.AddSecurity(configuration);
 builder.Services.AddEndpoints();
 builder.Services.AddOpenApi();
-
 
 var app = builder.Build();
 
@@ -76,16 +57,17 @@ app.MapScalarApiReference(options =>
 
 #endregion
 
-if (env.IsProduction())
+if (builder.Environment.IsProduction())
 {
     app.Services.ApplyPendingMigrations();
+    app.MapPrometheusScrapingEndpoint();
 }
 
-app.MapPrometheusScrapingEndpoint();
 app.UseSerilogRequestLogging();
 
 try
 {
+    Log.Information("Keystore.API is starting up");
     app.Run();
 }
 catch (Exception ex)
@@ -98,4 +80,4 @@ finally
 }
 
 // Required for integration tests
-public partial class Program { }
+public partial class Program;

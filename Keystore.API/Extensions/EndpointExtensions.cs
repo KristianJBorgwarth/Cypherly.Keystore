@@ -5,7 +5,7 @@ namespace Keystore.API.Extensions;
 
 public static class EndpointExtensions
 {
-    public static IServiceCollection AddEndpoints(this IServiceCollection services)
+    public static void AddEndpoints(this IServiceCollection services)
     {
         var assembly = typeof(Program).Assembly;
         var serviceDescriptors = assembly
@@ -14,10 +14,9 @@ public static class EndpointExtensions
                            type.IsAssignableTo(typeof(IEndpoint)))
             .Select(type => ServiceDescriptor.Transient(typeof(IEndpoint), type));
         services.TryAddEnumerable(serviceDescriptors);
-        return services;
     }
 
-    public static IApplicationBuilder RegisterMinimalEndpoints(this WebApplication app)
+    public static void RegisterMinimalEndpoints(this WebApplication app)
     {
         var endpoints = app.Services
             .GetRequiredService<IEnumerable<IEndpoint>>();
@@ -26,7 +25,5 @@ public static class EndpointExtensions
         {
             endpoint.MapRoutes(app);
         }
-
-        return app;
     }
 }
