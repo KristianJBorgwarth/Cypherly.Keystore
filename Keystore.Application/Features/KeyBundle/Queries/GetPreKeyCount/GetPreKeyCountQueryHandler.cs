@@ -17,7 +17,7 @@ public sealed class GetPreKeyCountQueryHandler(
             var keyBundle = await keyBundleRepository.GetByIdWithPreKeysAsync(query.TenantId, cancellationToken);
             if (keyBundle is null)
             {
-                return Result.Fail<GetPreKeyCountDto>(Error.NotFound(ErrorCodes.KeyNotFound, "Key not found with access id: {0}", query.TenantId));
+                return Result.Fail<GetPreKeyCountDto>(Error.NotFound("Key not found"));
             }
             
             var count = keyBundle.PreKeys.Count;
@@ -27,7 +27,7 @@ public sealed class GetPreKeyCountQueryHandler(
         catch (Exception ex)
         {
             logger.LogCritical(ex, "An exception occured while getting pre key count for user with ID: {ID}", query.TenantId);
-            return Result.Fail<GetPreKeyCountDto>(Error.Failure(ErrorCodes.Server, "An exception occured while retrieving prekey count") );
+            return Result.Fail<GetPreKeyCountDto>(Error.Failure("An exception occured while retrieving prekey count") );
         }
     }
 }

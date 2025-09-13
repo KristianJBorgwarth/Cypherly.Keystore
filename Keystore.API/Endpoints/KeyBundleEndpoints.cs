@@ -16,7 +16,8 @@ public sealed class KeyBundleEndpoints : IEndpoint
     {
         var group = routeBuilder.MapGroup("api/keys")
             .WithTags("Key Bundles")
-            .RequireAuthorization();
+            .RequireAuthorization()
+            .ProducesProblem(StatusCodes.Status401Unauthorized);
 
         group.MapPost("/", async ([FromBody] CreateKeyBundleRequest req, ISender sender, HttpContext ctx) =>
             {
