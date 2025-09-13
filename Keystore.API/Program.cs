@@ -1,4 +1,5 @@
 using System.Reflection;
+using Keystore.API.Common;
 using Keystore.API.Extensions;
 using Keystore.Application.Extensions;
 using Keystore.Infrastructure.Extensions;
@@ -17,25 +18,16 @@ builder.Host.UseSerilog();
 
 builder.Services.AddObservability(configuration);
 
-#region CORS
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("Development", builder =>
-    {
-        builder
-            .AllowAnyOrigin() // or WithOrigins("*")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
-#endregion
+builder.Services.AddCorsPolicy();
 
 builder.Services.AddApplication(Assembly.Load("Keystore.Application"));
+
 builder.Services.AddInfrastructure(configuration, Assembly.Load("Keystore.Infrastructure"));
+
 builder.Services.AddSecurity(configuration);
+
 builder.Services.AddEndpoints();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -44,9 +36,8 @@ app.RegisterMinimalEndpoints();
 
 app.UseCors("Development");
 
-#region Scalar
-
 app.MapOpenApi();
+
 app.MapScalarApiReference(options =>
 {
     options.WithTitle("Keystore.API V1")
@@ -54,8 +45,6 @@ app.MapScalarApiReference(options =>
         .WithDarkModeToggle(false)
         .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
 });
-
-#endregion
 
 if (builder.Environment.IsProduction())
 {
