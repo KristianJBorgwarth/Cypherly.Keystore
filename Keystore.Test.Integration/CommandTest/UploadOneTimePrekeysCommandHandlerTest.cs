@@ -30,7 +30,9 @@ public class UploadOneTimePreKeysCommandHandlerTest : IntegrationTestBase
     {
         // Arrange
         var keyBundle = Fixture.Build<KeyBundle>().Create();
+        
         var preKeys = Fixture.CreateMany<PreKeyDto>(100).ToArray();
+        
         await Db.KeyBundle.AddAsync(keyBundle);
         await Db.SaveChangesAsync();
         

@@ -24,6 +24,7 @@ internal sealed class CreateKeyBundleRequest
         SignedPrekeyId = SignedPrekeyId,
         SignedPreKeyPublic = SignedPreKeyPublic,
         SignedPreKeySignature = SignedPreKeySignature,
+        PreKeys = PreKeys,
         SignedPreKeyTimestamp = SignedPreKeyTimestamp
     };
 }

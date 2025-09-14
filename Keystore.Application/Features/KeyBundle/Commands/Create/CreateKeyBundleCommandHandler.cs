@@ -16,16 +16,7 @@ public sealed class CreateKeyBundleCommandHandler(
     {
         try
         {
-            var keyBundle = new Domain.Aggregates.KeyBundle(
-                request.UserId,
-                request.AccessKey,
-                request.IdentityKey,
-                request.RegistrationId,
-                request.SignedPrekeyId,
-                request.SignedPreKeyPublic,
-                request.SignedPreKeySignature,
-                request.SignedPreKeyTimestamp);
-
+            var keyBundle = MapToBundle(request);
             await keyBundleRepository.CreateAsync(keyBundle, cancellationToken);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
@@ -37,4 +28,27 @@ public sealed class CreateKeyBundleCommandHandler(
             return Result.Fail(Error.Failure());
         }
     }
+
+    private static Domain.Aggregates.KeyBundle MapToBundle(CreateKeyBundleCommand request)
+    {
+        var keyBundle = new Domain.Aggregates.KeyBundle(
+            request.UserId,
+            request.AccessKey,
+            request.IdentityKey,
+            request.RegistrationId,
+            request.SignedPrekeyId,
+            request.SignedPreKeyPublic,
+            request.SignedPreKeySignature,
+            request.SignedPreKeyTimestamp);
+
+        keyBundle.UploadPreKeys(request.PreKeys.Select(x => new Domain.Entities.PreKey(
+            id: Guid.NewGuid(), 
+            keyBundleId:
+            request.UserId, 
+            keyId: x.KeyId, 
+            publicKey: x.PublicKey))
+            .ToArray());
+
+        return keyBundle;
+    } 
 }
