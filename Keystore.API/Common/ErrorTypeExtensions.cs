@@ -9,9 +9,11 @@ public static class ErrorTypeExtensions
     {
         return errorType switch
         {
-            ErrorType.Failure or ErrorType.Validation => StatusCodes.Status400BadRequest,
+            ErrorType.Failure => StatusCodes.Status500InternalServerError,
+            ErrorType.Validation => StatusCodes.Status400BadRequest,
             ErrorType.NotFound => StatusCodes.Status404NotFound,
             ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
+            ErrorType.BadRequest => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError
         };
     }
@@ -20,10 +22,11 @@ public static class ErrorTypeExtensions
     {
         return errorType switch
         {
-            ErrorType.Failure => "Bad Request",
+            ErrorType.Failure => "Internal Server Error",
             ErrorType.Validation => "Bad Request",
             ErrorType.NotFound => "Not Found",
             ErrorType.Unauthorized => "Unauthorized",
+            ErrorType.BadRequest => "Bad Request",
             _ => "Internal Server Error"
         };
     }
