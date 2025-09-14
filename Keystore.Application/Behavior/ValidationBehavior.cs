@@ -1,12 +1,15 @@
 ﻿using FluentValidation;
 using Keystore.Domain.Common;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 // ReSharper disable InvertIf
 
 namespace Keystore.Application.Behavior;
 
-public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? validator = null)
+public class ValidationBehavior<TRequest, TResponse>(
+    ILogger<ValidationBehavior<TRequest, TResponse>> logger,
+    IValidator<TRequest>? validator = null)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : Result
@@ -22,9 +25,10 @@ public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? valid
         if (validationResult.IsValid)
             return await next(cancellationToken);
 
-        var errorMessage =
-            string.Join("; ", validationResult.Errors.Select(e => $"{e.ErrorMessage} ({e.PropertyName})"));
+        var errorMessage = string.Join("; ", validationResult.Errors.Select(e => $"{e.ErrorMessage} ({e.PropertyName})"));
 
+        logger.LogWarning("Validation failed for {RequestType}: {ErrorMessage}", typeof(TRequest).Name, errorMessage);
+        
         var error = Error.Validation("Validation failed: " + errorMessage);
 
         return typeof(TResponse).IsGenericType && typeof(TResponse).GetGenericTypeDefinition() == typeof(Result<>)
