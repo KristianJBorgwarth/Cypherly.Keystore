@@ -50,7 +50,7 @@ internal sealed class KeyBundleEndpoints : IEndpoint
             .Produces(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest);
 
-        group.MapGet("/pre-key-count", async (ISender sender, HttpContext ctx) =>
+        group.MapGet("/otps/count", async (ISender sender, HttpContext ctx) =>
             {
                 var tenantId = ctx.User.GetUserId();
                 var cmd = new GetPreKeyCountQuery { TenantId = tenantId };
