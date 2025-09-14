@@ -36,5 +36,6 @@ public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
         result.Success.Should().BeTrue();
         result.Error.Should().BeNull();
         Db.KeyBundle.Count().Should().Be(1);
+        Db.OneTimePreKey.Count().Should().Be(command.PreKeys.Count);
     }
 }
