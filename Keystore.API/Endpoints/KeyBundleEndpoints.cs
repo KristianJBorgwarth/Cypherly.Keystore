@@ -10,7 +10,7 @@ using OpenTelemetry.Trace;
 
 namespace Keystore.API.Endpoints;
 
-public sealed class KeyBundleEndpoints : IEndpoint
+internal sealed class KeyBundleEndpoints : IEndpoint
 {
     public void MapRoutes(IEndpointRouteBuilder routeBuilder)
     {
@@ -28,9 +28,8 @@ public sealed class KeyBundleEndpoints : IEndpoint
                 return result.Success ? Results.Ok() : result.ToProblemDetails();
             })
             .Produces(StatusCodes.Status201Created)
-            .ProducesProblem(StatusCodes.Status400BadRequest)
-            .ProducesProblem(StatusCodes.Status401Unauthorized);
-
+            .ProducesProblem(StatusCodes.Status400BadRequest);
+        
         group.MapGet("/session", async ([AsParameters] GetSessionKeysRequest req, ISender sender) =>
             {
                 var query = new GetSessionKeysQuery { AccessKey = req.AccessKey };
@@ -40,28 +39,26 @@ public sealed class KeyBundleEndpoints : IEndpoint
             .Produces<SessionKeysDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);
-        
+
         group.MapPost("/otps", async ([FromBody] UploadOneTimePreKeysRequest req, ISender sender, HttpContext ctx) =>
-        {
-            var userId = ctx.User.GetUserId();
-            var cmd = new UploadOneTimePreKeysCommand { Id = userId, PreKeys = req.PreKeys };
-            var result = await sender.Send(cmd);
-            return result.Success ? Results.Ok() : result.ToProblemDetails();
-        })
-        .Produces(StatusCodes.Status201Created)
-        .ProducesProblem(StatusCodes.Status400BadRequest)
-        .ProducesProblem(StatusCodes.Status401Unauthorized);
-        
+            {
+                var userId = ctx.User.GetUserId();
+                var cmd = new UploadOneTimePreKeysCommand { Id = userId, PreKeys = req.PreKeys };
+                var result = await sender.Send(cmd);
+                return result.Success ? Results.Ok() : result.ToProblemDetails();
+            })
+            .Produces(StatusCodes.Status201Created)
+            .ProducesProblem(StatusCodes.Status400BadRequest);
+
         group.MapGet("/pre-key-count", async (ISender sender, HttpContext ctx) =>
-        {
-            var tenantId = ctx.User.GetUserId();
-            var cmd = new GetPreKeyCountQuery { TenantId = tenantId };
-            var result = await sender.Send(cmd);
-            return result.Success ? Results.Ok() : result.ToProblemDetails();
-        })
-        .Produces<GetPreKeyCountDto>()
-        .ProducesProblem(StatusCodes.Status400BadRequest)
-        .ProducesProblem(StatusCodes.Status404NotFound)
-        .ProducesProblem(StatusCodes.Status401Unauthorized);
+            {
+                var tenantId = ctx.User.GetUserId();
+                var cmd = new GetPreKeyCountQuery { TenantId = tenantId };
+                var result = await sender.Send(cmd);
+                return result.Success ? Results.Ok() : result.ToProblemDetails();
+            })
+            .Produces<GetPreKeyCountDto>()
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }

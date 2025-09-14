@@ -1,4 +1,4 @@
-﻿namespace Keystore.API.Endpoints;
+﻿namespace Keystore.API.Common;
 
 internal interface IEndpoint
 {
