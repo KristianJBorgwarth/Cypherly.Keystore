@@ -4,5 +4,5 @@ namespace Keystore.Application.Features.KeyBundle.Queries.GetPreKeyCount;
 
 public sealed record GetPreKeyCountQuery : IQuery<GetPreKeyCountDto>
 {
-    public required Guid TenantId { get; init; }
+    public required Guid Id { get; init; }
 }
