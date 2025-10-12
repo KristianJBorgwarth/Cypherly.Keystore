@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Cypherly.Message.Contracts.Abstractions;
 using Cypherly.Message.Contracts.Messages.KeyBundle;
-using Keystore.Domain.Events;
 using Keystore.Infrastructure.Messaging;
 using Keystore.Infrastructure.Settings;
 using MassTransit;
