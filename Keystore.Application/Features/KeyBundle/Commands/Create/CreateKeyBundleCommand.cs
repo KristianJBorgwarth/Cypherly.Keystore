@@ -5,7 +5,8 @@ namespace Keystore.Application.Features.KeyBundle.Commands.Create;
 
 public sealed record CreateKeyBundleCommand : ICommand
 {
-    public required Guid UserId { get; init; }
+    public required Guid TenantId { get; init; }
+    public required Guid DeviceId { get; init; }
     public required Guid AccessKey { get; init; }
     public required byte[] IdentityKey { get; init; }
     public required ushort RegistrationId { get; init; }

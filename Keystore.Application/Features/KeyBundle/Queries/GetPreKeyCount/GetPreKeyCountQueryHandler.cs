@@ -14,10 +14,10 @@ public sealed class GetPreKeyCountQueryHandler(
     {
         try
         {
-            var keyBundle = await keyBundleRepository.GetByIdWithPreKeysAsync(query.TenantId, cancellationToken);
+            var keyBundle = await keyBundleRepository.GetByIdWithPreKeysAsync(query.Id, cancellationToken);
             if (keyBundle is null)
             {
-                return Result.Fail<GetPreKeyCountDto>(Error.NotFound<Domain.Aggregates.KeyBundle>(query.TenantId.ToString()));
+                return Result.Fail<GetPreKeyCountDto>(Error.NotFound<Domain.Aggregates.KeyBundle>(query.Id.ToString()));
             }
             
             var count = keyBundle.PreKeys.Count;
@@ -26,7 +26,7 @@ public sealed class GetPreKeyCountQueryHandler(
         }
         catch (Exception ex)
         {
-            logger.LogCritical(ex, "An exception occured while getting pre key count for user with ID: {ID}", query.TenantId);
+            logger.LogCritical(ex, "An exception occured while getting pre key count for user with ID: {ID}", query.Id);
             return Result.Fail<GetPreKeyCountDto>(Error.Failure());
         }
     }

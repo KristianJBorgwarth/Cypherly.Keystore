@@ -14,6 +14,10 @@ public sealed class KeyBundleModelConfiguration : BaseModelConfiguration<KeyBund
 
         builder.Property(d => d.Id)
             .HasColumnName("id");
+        
+        builder.Property(kb => kb.UserId)
+            .HasColumnName("user_id")
+            .IsRequired();
 
         builder.Property(kb => kb.AccessKey)
             .HasColumnName("access_key")

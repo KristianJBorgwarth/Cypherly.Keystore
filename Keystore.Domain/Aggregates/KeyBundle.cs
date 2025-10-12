@@ -12,13 +12,14 @@ namespace Keystore.Domain.Aggregates;
 
 public sealed class KeyBundle : AggregateRoot
 {
+    public Guid UserId { get; private init; }
     public Guid AccessKey { get; private init; }
     public byte[] IdentityKey { get; private set; }
     public ushort RegistrationId { get; private set; }
     public int SignedPrekeyId { get; private set; }
     public byte[] SignedPreKeyPublic { get; private set; }
     public byte[] SignedPreKeySignature { get; private set; }
-    public DateTime SignedPreKeyTimestamp { get; private set; }
+    public DateTimeOffset SignedPreKeyTimestamp { get; private set; }
 
     private readonly List<PreKey> _preKeys = [];
     public IReadOnlyCollection<PreKey> PreKeys => _preKeys.AsReadOnly();
@@ -28,6 +29,7 @@ public sealed class KeyBundle : AggregateRoot
 
     public KeyBundle(
         Guid id,
+        Guid userId,
         Guid accessKey,
         byte[] identityKey,
         ushort registrationId,
@@ -37,7 +39,7 @@ public sealed class KeyBundle : AggregateRoot
         DateTimeOffset signedPreKeyTimestamp
     ) : base(id)
     {
-
+        UserId = userId;
         AccessKey = accessKey;
         IdentityKey = identityKey ?? throw new ArgumentNullException(nameof(identityKey));
         RegistrationId = registrationId;

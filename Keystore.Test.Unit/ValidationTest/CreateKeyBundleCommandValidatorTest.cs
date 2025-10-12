@@ -7,15 +7,15 @@ namespace Keystore.Test.Unit.ValidationTest;
 
 public class CreateKeyBundleCommandValidatorTest
 {
-    private readonly CreateKeyBundleCommandValidator _validator = new CreateKeyBundleCommandValidator();
-    private readonly IFixture _fixture = new Fixture();
+    private readonly CreateKeyBundleCommandValidator _validator = new();
+    private readonly Fixture _fixture = new();
 
     [Fact]
     public void Should_Pass_Validation_For_Valid_Command()
     {
         // Arrange
         var command = _fixture.Build<CreateKeyBundleCommand>()
-            .With(x => x.UserId, Guid.NewGuid())
+            .With(x => x.TenantId, Guid.NewGuid())
             .With(x => x.AccessKey, Guid.NewGuid)
             .With(x => x.IdentityKey, [1, 2, 3])
             .With(x => x.RegistrationId, 1)
@@ -36,12 +36,12 @@ public class CreateKeyBundleCommandValidatorTest
     public void Should_Fail_When_UserId_Is_Empty()
     {
         var command = _fixture.Build<CreateKeyBundleCommand>()
-            .With(x => x.UserId, Guid.Empty)
+            .With(x => x.TenantId, Guid.Empty)
             .Create();
 
         var result = _validator.TestValidate(command);
 
-        result.ShouldHaveValidationErrorFor(x => x.UserId);
+        result.ShouldHaveValidationErrorFor(x => x.TenantId);
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class CreateKeyBundleCommandValidatorTest
     public void Should_Fail_When_IdentityKey_Is_Empty()
     {
         var command = _fixture.Build<CreateKeyBundleCommand>()
-            .With(x => x.IdentityKey, Array.Empty<byte>())
+            .With(x => x.IdentityKey, [])
             .Create();
 
         var result = _validator.TestValidate(command);
