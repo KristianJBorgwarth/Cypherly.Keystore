@@ -34,7 +34,7 @@ public class GetPreKeyCountQueryHandlerTest : IntegrationTestBase
         await Db.KeyBundle.AddAsync(keyBundle);
         await Db.SaveChangesAsync();
 
-        var query = new GetPreKeyCountQuery { TenantId = keyBundle.Id };
+        var query = new GetPreKeyCountQuery { Id = keyBundle.Id };
         
         // Act
         var result = await _sut.Handle(query, CancellationToken.None);
@@ -55,7 +55,7 @@ public class GetPreKeyCountQueryHandlerTest : IntegrationTestBase
         await Db.KeyBundle.AddAsync(keyBundle);
         await Db.SaveChangesAsync();
         
-        var query = new GetPreKeyCountQuery { TenantId = Guid.NewGuid() };
+        var query = new GetPreKeyCountQuery { Id = Guid.NewGuid() };
         
         // Act
         var result = await _sut.Handle(query, CancellationToken.None);

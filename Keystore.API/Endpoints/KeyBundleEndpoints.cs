@@ -21,8 +21,7 @@ internal sealed class KeyBundleEndpoints : IEndpoint
 
         group.MapPost("/", async ([FromBody] CreateKeyBundleRequest req, ISender sender, HttpContext ctx) =>
             {
-                var userId = ctx.User.GetUserId();
-                var cmd = req.MapToCommand(userId);
+                var cmd = req.MapToCommand(ctx.User.GetUserId(), ctx.User.GetDeviceId());
                 var result = await sender.Send(cmd);
 
                 return result.Success ? Results.Ok() : result.ToProblemDetails();
@@ -42,8 +41,7 @@ internal sealed class KeyBundleEndpoints : IEndpoint
 
         group.MapPost("/otps", async ([FromBody] UploadOneTimePreKeysRequest req, ISender sender, HttpContext ctx) =>
             {
-                var userId = ctx.User.GetUserId();
-                var cmd = new UploadOneTimePreKeysCommand { Id = userId, PreKeys = req.PreKeys };
+                var cmd = new UploadOneTimePreKeysCommand { Id = ctx.User.GetDeviceId(), PreKeys = req.PreKeys };
                 var result = await sender.Send(cmd);
                 return result.Success ? Results.Ok() : result.ToProblemDetails();
             })
@@ -52,8 +50,7 @@ internal sealed class KeyBundleEndpoints : IEndpoint
 
         group.MapGet("/otps/count", async (ISender sender, HttpContext ctx) =>
             {
-                var tenantId = ctx.User.GetUserId();
-                var cmd = new GetPreKeyCountQuery { TenantId = tenantId };
+                var cmd = new GetPreKeyCountQuery { Id = ctx.User.GetDeviceId() };
                 var result = await sender.Send(cmd);
                 return result.Success ? Results.Ok() : result.ToProblemDetails();
             })

@@ -1,6 +1,5 @@
 ﻿using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
-using Keystore.Domain.Abstractions;
 using Keystore.Domain.Common;
 using Microsoft.Extensions.Logging;
 
@@ -32,22 +31,22 @@ public sealed class CreateKeyBundleCommandHandler(
     private static Domain.Aggregates.KeyBundle MapToBundle(CreateKeyBundleCommand request)
     {
         var keyBundle = new Domain.Aggregates.KeyBundle(
-            request.UserId,
-            request.AccessKey,
-            request.IdentityKey,
-            request.RegistrationId,
-            request.SignedPrekeyId,
-            request.SignedPreKeyPublic,
-            request.SignedPreKeySignature,
-            request.SignedPreKeyTimestamp);
+            id: request.DeviceId,
+            userId: request.TenantId,
+            accessKey: request.AccessKey,
+            identityKey: request.IdentityKey,
+            registrationId: request.RegistrationId,
+            signedPrekeyId: request.SignedPrekeyId,
+            signedPreKeyPublic: request.SignedPreKeyPublic,
+            signedPreKeySignature: request.SignedPreKeySignature,
+            signedPreKeyTimestamp: request.SignedPreKeyTimestamp);
 
-        keyBundle.UploadPreKeys(request.PreKeys.Select(x => new Domain.Entities.PreKey(
+        keyBundle.UploadPreKeys([.. request.PreKeys.Select(x => new Domain.Entities.PreKey(
             id: Guid.NewGuid(), 
             keyBundleId:
-            request.UserId, 
+            request.DeviceId, 
             keyId: x.KeyId, 
-            publicKey: x.PublicKey))
-            .ToArray());
+            publicKey: x.PublicKey))]);
 
         return keyBundle;
     } 
