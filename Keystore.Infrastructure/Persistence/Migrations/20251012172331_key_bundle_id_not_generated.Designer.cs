@@ -3,6 +3,7 @@ using System;
 using Keystore.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Keystore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(KeystoreDbContext))]
-    partial class KeystoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251012172331_key_bundle_id_not_generated")]
+    partial class key_bundle_id_not_generated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

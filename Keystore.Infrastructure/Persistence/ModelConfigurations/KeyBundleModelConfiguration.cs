@@ -13,6 +13,7 @@ public sealed class KeyBundleModelConfiguration : BaseModelConfiguration<KeyBund
         builder.HasKey(kb => kb.Id);
 
         builder.Property(d => d.Id)
+            .ValueGeneratedNever()
             .HasColumnName("id");
         
         builder.Property(kb => kb.UserId)

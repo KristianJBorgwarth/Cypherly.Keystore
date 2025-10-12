@@ -15,17 +15,17 @@ internal sealed class KeyBundleRepository(KeystoreDbContext context) : IKeyBundl
 
     public async Task<KeyBundle?> GetByIdAsync(Guid tenantId, CancellationToken cancellationToken = default)
     {
-        return await context.KeyBundle.FirstOrDefaultAsync(x=> x.Id == tenantId, cancellationToken);
+        return await context.KeyBundle.FirstOrDefaultAsync(x => x.Id == tenantId, cancellationToken);
     }
 
     public async Task<KeyBundle?> GetByIdWithPreKeysAsync(Guid tenantId, CancellationToken cancellationToken = default)
     {
-        return await context.KeyBundle.Include(x=> x.PreKeys).FirstOrDefaultAsync(x => x.Id == tenantId, cancellationToken);
+        return await context.KeyBundle.Include(x => x.PreKeys).FirstOrDefaultAsync(x => x.Id == tenantId, cancellationToken);
     }
-    
-    public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+
+    public async Task DeleteAsync(KeyBundle entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        context.KeyBundle.Remove(entity);
     }
 
     public async Task<KeyBundle?> GetByAccessIdAsync(Guid accessKey, CancellationToken cancellationToken = default)
@@ -33,7 +33,7 @@ internal sealed class KeyBundleRepository(KeystoreDbContext context) : IKeyBundl
         var keyBundle = await context.KeyBundle
             .Include(x => x.PreKeys)
             .FirstOrDefaultAsync(x => x.AccessKey == accessKey, cancellationToken: cancellationToken);
-        
+
         return keyBundle;
     }
 
