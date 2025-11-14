@@ -11,7 +11,7 @@ public static class InfrastructureExtensions
     {
         services.ConfigureSettings(configuration);
         services.AddPersistence(configuration, assembly);
-        services.AddMassTransitWithRabbitMq(Assembly.GetExecutingAssembly());
+        services.AddMassTransitWithRabbitMq();
         return services;
     }
 

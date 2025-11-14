@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Cypherly.Message.Contracts.Abstractions;
 using Cypherly.Message.Contracts.Messages.KeyBundle;
+using Keystore.Application.Features.KeyBundle.Consumers;
 using Keystore.Infrastructure.Messaging;
 using Keystore.Infrastructure.Settings;
 using MassTransit;
@@ -11,25 +12,39 @@ namespace Keystore.Infrastructure.Extensions;
 
 public static class MasstransitExtensions
 {
-    internal static void AddMassTransitWithRabbitMq(this IServiceCollection services, Assembly assembly)
+    internal static void AddMassTransitWithRabbitMq(this IServiceCollection services)
     {
+        services.ConfigureMasstransit(Assembly.Load("Keystore.Application"), (cfg, context) =>
+        {
+            cfg.ReceiveEndpoint("keystore.logout_queue", e =>
+            {
+                e.Consumer<UserLogoutConsumer>(context);
+            });
+        });
 
+        services.AddProducer<KeyCountLowMessage>();
+    }
+
+    private static void ConfigureMasstransit(
+            this IServiceCollection services,
+            Assembly consumerAssembly,
+            Action<IRabbitMqBusFactoryConfigurator, IBusRegistrationContext>? rabbitMqConfig = null)
+    {
         services.AddMassTransit(x =>
         {
-            x.AddConsumers(assembly);
+            x.AddConsumers(consumerAssembly);
 
             x.UsingRabbitMq((context, cfg) =>
             {
                 var rabbitMqSettings = context.GetRequiredService<IOptions<RabbitMqSettings>>().Value;
 
                 cfg.Host(rabbitMqSettings.Host, "/", h =>
-                {
-                    h.Username(rabbitMqSettings.Username ??
-                               throw new InvalidOperationException("Cannot initialize RabbitMQ without a username"));
-                    h.Password(rabbitMqSettings.Password ??
-                               throw new InvalidOperationException("Cannot initialize RabbitMQ without a password"));
-                });
-
+                        {
+                            h.Username(rabbitMqSettings.Username ??
+                                       throw new InvalidOperationException("Cannot initialize RabbitMQ without a username"));
+                            h.Password(rabbitMqSettings.Password ??
+                                       throw new InvalidOperationException("Cannot initialize RabbitMQ without a password"));
+                        });
 
                 cfg.UseMessageRetry(r => r.Interval(5, TimeSpan.FromSeconds(5)));
 
@@ -41,12 +56,10 @@ public static class MasstransitExtensions
                     cb.ResetInterval = TimeSpan.FromMinutes(5);
                 });
 
-
+                rabbitMqConfig?.Invoke(cfg, context);
                 cfg.ConfigureEndpoints(context);
             });
         });
-
-        services.AddProducer<KeyCountLowMessage>();
     }
 
     /// <summary>
