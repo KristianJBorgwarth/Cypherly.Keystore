@@ -7,12 +7,14 @@ namespace Keystore.Infrastructure.Extensions;
 
 public static class InfrastructureExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, Assembly assembly)
+    public static void AddInfrastructure(
+        this IServiceCollection services, 
+        IConfiguration configuration,
+        Assembly assembly)
     {
         services.ConfigureSettings(configuration);
         services.AddPersistence(configuration, assembly);
         services.AddMassTransitWithRabbitMq();
-        return services;
     }
 
     private static void ConfigureSettings(this IServiceCollection services, IConfiguration configuration)
