@@ -38,7 +38,7 @@ app.MapScalarApiReference(options =>
 {
     options.WithTitle("Keystore.API V1")
         .WithTheme(ScalarTheme.Purple)
-        .WithDarkModeToggle(false)
+        .HideDarkModeToggle()
         .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
 });
 
