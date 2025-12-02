@@ -4,19 +4,13 @@ using Keystore.API.Extensions;
 using Keystore.Application.Extensions;
 using Keystore.Infrastructure.Extensions;
 using Scalar.AspNetCore;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.SetupConfiguration();
 
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(configuration)
-    .CreateLogger();
-
-builder.Host.UseSerilog();
-
-builder.Services.AddObservability(configuration);
+builder.AddLogging();
+builder.Services.AddObservability();
 
 builder.Services.AddCorsPolicy();
 
@@ -31,6 +25,8 @@ builder.Services.AddEndpoints();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
 
 app.RegisterMinimalEndpoints();
 
@@ -49,23 +45,17 @@ app.MapScalarApiReference(options =>
 if (builder.Environment.IsProduction())
 {
     app.Services.ApplyPendingMigrations();
-    app.MapPrometheusScrapingEndpoint();
 }
-
-app.UseSerilogRequestLogging();
 
 try
 {
-    Log.Information("Keystore.API is starting up");
+    logger.LogInformation("Keystore.API is starting up");
     app.Run();
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Application start-up failed");
-}
-finally
-{
-    Log.CloseAndFlush();
+    logger.LogCritical(ex, "Application start-up failed");
+    throw;
 }
 
 // Required for integration tests
