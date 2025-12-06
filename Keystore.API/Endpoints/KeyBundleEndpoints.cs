@@ -33,7 +33,7 @@ internal sealed class KeyBundleEndpoints : IEndpoint
             {
                 var query = new GetSessionKeysQuery { AccessKey = req.AccessKey };
                 var result = await sender.Send(query);
-                return result.Success ? Results.Ok() : result.ToProblemDetails();
+                return result.Success ? Results.Ok(result) : result.ToProblemDetails();
             })
             .Produces<SessionKeysDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
