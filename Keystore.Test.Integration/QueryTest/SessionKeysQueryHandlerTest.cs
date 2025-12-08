@@ -4,13 +4,11 @@ using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
 using Keystore.Application.Features.KeyBundle.Queries.GetPrekey;
 using Keystore.Domain.Aggregates;
-using Keystore.Domain.Common;
 using Keystore.Domain.Entities;
 using Keystore.Infrastructure.Persistence.Context;
 using Keystore.Test.Integration.Setup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Keystore.Test.Integration.QueryTest;
 
@@ -23,8 +21,7 @@ public class SessionKeysQueryHandlerTest : IntegrationTestBase
         var scope = factory.Services.CreateScope();
         var repo = scope.ServiceProvider.GetRequiredService<IKeyBundleRepository>();
         var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<GetSessionKeysQueryHandler>>(); 
-        _sut = new GetSessionKeysQueryHandler(repo, uow, logger);
+        _sut = new GetSessionKeysQueryHandler(repo, uow);
     }
 
     [Fact]

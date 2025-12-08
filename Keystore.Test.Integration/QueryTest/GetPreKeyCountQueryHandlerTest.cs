@@ -7,7 +7,6 @@ using Keystore.Domain.Entities;
 using Keystore.Infrastructure.Persistence.Context;
 using Keystore.Test.Integration.Setup;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Keystore.Test.Integration.QueryTest;
 
@@ -19,9 +18,8 @@ public class GetPreKeyCountQueryHandlerTest : IntegrationTestBase
     {
         var scope = factory.Services.CreateScope();
         var repo = scope.ServiceProvider.GetRequiredService<IKeyBundleRepository>();
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<GetPreKeyCountQueryHandler>>();
         
-        _sut = new GetPreKeyCountQueryHandler(repo, logger);
+        _sut = new GetPreKeyCountQueryHandler(repo);
     }
 
     [Fact]
