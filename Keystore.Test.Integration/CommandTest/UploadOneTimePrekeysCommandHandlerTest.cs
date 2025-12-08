@@ -21,8 +21,7 @@ public class UploadOneTimePreKeysCommandHandlerTest : IntegrationTestBase
         var scope = factory.Services.CreateScope();
         var repository = scope.ServiceProvider.GetRequiredService<IKeyBundleRepository>();
         var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<UploadOneTimePreKeysCommandHandler>>();
-        _sut = new UploadOneTimePreKeysCommandHandler(repository, uow, logger);
+        _sut = new UploadOneTimePreKeysCommandHandler(repository, uow);
     }
 
     [Fact]

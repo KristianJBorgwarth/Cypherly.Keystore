@@ -7,7 +7,6 @@ using Keystore.Infrastructure.Persistence.Context;
 using Keystore.Test.Integration.Setup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Keystore.Test.Integration.CommandTest;
 
@@ -20,8 +19,7 @@ public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
         var scope = factory.Services.CreateScope();
         _sut = new CreateKeyBundleCommandHandler(
             scope.ServiceProvider.GetRequiredService<IKeyBundleRepository>(),
-            scope.ServiceProvider.GetRequiredService<IUnitOfWork>(),
-            scope.ServiceProvider.GetRequiredService<ILogger<CreateKeyBundleCommandHandler>>());
+            scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
     }
 
     [Fact]
