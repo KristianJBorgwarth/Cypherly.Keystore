@@ -13,6 +13,7 @@ builder.AddLogging();
 builder.Services.AddObservability();
 
 builder.Services.AddCorsPolicy();
+builder.Services.AddControllers();
 
 builder.Services.AddApplication(Assembly.Load("Keystore.Application"));
 
