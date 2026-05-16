@@ -1,30 +1,34 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 
 namespace Keystore.API.Extensions;
 
 internal static class AuthenticationExtensions
 {
-    internal static void AddSecurity(this IServiceCollection services, IConfiguration configuration)
+    public static void AddAuthentication(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+        var authority = configuration["Jwt:Issuer"]
+            ?? throw new NotImplementedException($"MISSING VALUE IN JWT SETTINGS {configuration["Jwt:Authority"]}");
+
+        var audience = configuration["Jwt:Audience"]
+            ?? throw new NotImplementedException($"MISSING VALUE IN JWT SETTINGS {configuration["Jwt:Audience"]}");
+
+        services.AddAuthentication().AddJwtBearer(options =>
+        {
+            options.Authority = authority;
+            options.Audience = audience;
+            options.TokenValidationParameters = new TokenValidationParameters
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration.GetSection("Jwt:Issuer").Value ?? throw new NullReferenceException("Issuer cannot be null"),
-                    ValidAudience = configuration.GetSection("Jwt:Audience").Value ?? throw new NullReferenceException("Audience cannot be null"),
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                        configuration.GetSection("Jwt:Secret").Value ??
-                        throw new NullReferenceException("Secret cannot be null")))
-                };
-            });
-        
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = authority,
+                ValidAudience = audience,
+            };
+        });
+
         services.AddAuthorization();
     }
 }
