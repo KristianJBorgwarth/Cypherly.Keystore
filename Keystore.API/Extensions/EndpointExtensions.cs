@@ -1,5 +1,4 @@
 ﻿using Keystore.API.Common;
-using Keystore.API.Endpoints;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Keystore.API.Extensions;

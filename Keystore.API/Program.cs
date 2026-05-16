@@ -18,7 +18,7 @@ builder.Services.AddApplication(Assembly.Load("Keystore.Application"));
 
 builder.Services.AddInfrastructure(configuration, Assembly.Load("Keystore.Infrastructure"));
 
-builder.Services.AddSecurity(configuration);
+builder.Services.AddAuthentication(configuration);
 
 builder.Services.AddEndpoints();
 
