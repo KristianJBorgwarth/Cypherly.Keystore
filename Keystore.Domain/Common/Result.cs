@@ -48,7 +48,6 @@ public class Result<T> : Result
     
     /// <summary>
     /// Gets the value of the Result, throwing an InvalidOperationException if the value is null.
-    /// I.e. use this when you are sure the value is not null.
     /// </summary>
     /// <exception cref="InvalidOperationException">In case of accessing failed result</exception>
     /// <exception cref="NullReferenceException">In case of null _value</exception>
@@ -74,6 +73,6 @@ public class Result<T> : Result
 
     public static implicit operator T(Result<T> from)
     {
-        return from.Value;
+        return from.Value!;
     }
 }
