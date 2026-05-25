@@ -31,5 +31,5 @@ jobs:
           docker buildx build --platform linux/amd64 \
             --secret id=nuget_token,src=nuget_token.txt \
             -t ${{ secrets.DOCKER_USERNAME }}/dev-cypherly-keystore-api:latest \
-            -f Keystore.API/Dockerfile . \
+            -f src/Keystore.API/Dockerfile . \
             --push

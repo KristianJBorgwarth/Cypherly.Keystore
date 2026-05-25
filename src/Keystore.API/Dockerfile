@@ -14,18 +14,18 @@ RUN --mount=type=secret,id=nuget_token \
     sed -i "s|%NUGET_TOKEN%|$(cat /run/secrets/nuget_token)|g" nuget.config
 
 # project stubs for first restore
-COPY ["Keystore.API/Keystore.API.csproj", "Keystore.API/"]
-COPY ["Keystore.Application/Keystore.Application.csproj", "Keystore.Application/"]
-COPY ["Keystore.Domain/Keystore.Domain.csproj", "Keystore.Domain/"]
-COPY ["Keystore.Infrastructure/Keystore.Infrastructure.csproj", "Keystore.Infrastructure/"]
+COPY ["src/Keystore.API/Keystore.API.csproj", "src/Keystore.API/"]
+COPY ["src/Keystore.Application/Keystore.Application.csproj", "src/Keystore.Application/"]
+COPY ["src/Keystore.Domain/Keystore.Domain.csproj", "src/Keystore.Domain/"]
+COPY ["src/Keystore.Infrastructure/Keystore.Infrastructure.csproj", "src/Keystore.Infrastructure/"]
 
 # single authenticated restore
-RUN dotnet restore "Keystore.API/Keystore.API.csproj" --configfile nuget.config
+RUN dotnet restore "src/Keystore.API/Keystore.API.csproj" --configfile nuget.config
 
 # full source
 COPY . .
 
-WORKDIR /src/Keystore.API
+WORKDIR /src/src/Keystore.API
 RUN dotnet build Keystore.API.csproj --no-restore -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
