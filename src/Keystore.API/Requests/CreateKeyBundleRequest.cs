@@ -14,6 +14,9 @@ internal sealed class CreateKeyBundleRequest
     public required byte[] SignedPreKeySignature { get; init; }
     public required IReadOnlyCollection<PreKeyDto> PreKeys { get; init; }
     public required DateTimeOffset SignedPreKeyTimestamp { get; init; }
+    public required int KyberPreKeyId { get; init; }
+    public required byte[] KyberPreKeyPublic { get; init; }
+    public required byte[] KyberPreKeySignature { get; init; }
 
     public CreateKeyBundleCommand MapToCommand(Guid userId, Guid deviceId) => new()
     {
@@ -26,6 +29,9 @@ internal sealed class CreateKeyBundleRequest
         SignedPreKeyPublic = SignedPreKeyPublic,
         SignedPreKeySignature = SignedPreKeySignature,
         PreKeys = PreKeys,
-        SignedPreKeyTimestamp = SignedPreKeyTimestamp
+        SignedPreKeyTimestamp = SignedPreKeyTimestamp,
+        KyberPreKeyId = KyberPreKeyId,
+        KyberPreKeyPublic = KyberPreKeyPublic,
+        KyberPreKeySignature = KyberPreKeySignature
     };
 }

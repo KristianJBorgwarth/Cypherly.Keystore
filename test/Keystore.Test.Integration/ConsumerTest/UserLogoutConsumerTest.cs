@@ -43,6 +43,9 @@ public sealed class UserLogoutConsumerTest : IntegrationTestBase
             signedPrekeyId: 1,
             signedPreKeyPublic: [4, 5, 6],
             signedPreKeySignature: [7, 8, 9],
+            kyberPreKeyId: 1,
+            kyberPreKeyPublic: [10, 11, 12],
+            kyberPreKeySignature: [13, 14, 15],
             signedPreKeyTimestamp: DateTimeOffset.UtcNow);
         
         keyBundle.UploadPreKeys([.. _fixture.CreateMany<Domain.Entities.PreKey>(5).Select(x =>

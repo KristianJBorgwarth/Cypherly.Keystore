@@ -104,6 +104,42 @@ public class CreateKeyBundleCommandValidatorTest
         result.ShouldHaveValidationErrorFor(x => x.SignedPreKeyPublic);
     }
 
+    [Fact]
+    public void Should_Fail_When_KyberPreKeyId_Is_Zero()
+    {
+        var command = _fixture.Build<CreateKeyBundleCommand>()
+            .With(x => x.KyberPreKeyId, 0)
+            .Create();
+
+        var result = _validator.TestValidate(command);
+
+        result.ShouldHaveValidationErrorFor(x => x.KyberPreKeyId);
+    }
+
+    [Fact]
+    public void Should_Fail_When_KyberPreKeyPublic_Is_Empty()
+    {
+        var command = _fixture.Build<CreateKeyBundleCommand>()
+            .With(x => x.KyberPreKeyPublic, [])
+            .Create();
+
+        var result = _validator.TestValidate(command);
+
+        result.ShouldHaveValidationErrorFor(x => x.KyberPreKeyPublic);
+    }
+
+    [Fact]
+    public void Should_Fail_When_KyberPreKeySignature_Is_Empty()
+    {
+        var command = _fixture.Build<CreateKeyBundleCommand>()
+            .With(x => x.KyberPreKeySignature, [])
+            .Create();
+
+        var result = _validator.TestValidate(command);
+
+        result.ShouldHaveValidationErrorFor(x => x.KyberPreKeySignature);
+    }
+
 
     [Fact]
     public void Should_Fail_When_SignedPreKeyTimestamp_Is_In_The_Future()

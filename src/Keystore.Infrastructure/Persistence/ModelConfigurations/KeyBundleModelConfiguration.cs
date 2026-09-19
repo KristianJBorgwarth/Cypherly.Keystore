@@ -52,6 +52,18 @@ public sealed class KeyBundleModelConfiguration : BaseModelConfiguration<KeyBund
             .HasColumnName("signed_pre_key_public")
             .IsRequired();
 
+        builder.Property(kb => kb.KyberPreKeyId)
+            .HasColumnName("kyber_pre_key_id")
+            .IsRequired();
+
+        builder.Property(kb => kb.KyberPreKeyPublic)
+            .HasColumnName("kyber_pre_key_public")
+            .IsRequired();
+
+        builder.Property(kb => kb.KyberPreKeySignature)
+            .HasColumnName("kyber_pre_key_signature")
+            .IsRequired();
+
         builder.HasMany(x => x.PreKeys)
             .WithOne(x => x.KeyBundle)
             .HasForeignKey(x => x.KeyBundleId)

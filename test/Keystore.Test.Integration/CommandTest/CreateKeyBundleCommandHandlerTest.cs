@@ -35,7 +35,10 @@ public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
             .With(x => x.SignedPrekeyId, 1)
             .With(x => x.SignedPreKeyPublic, [4, 5, 6])
             .With(x => x.SignedPreKeySignature, [7, 8, 9])
-            .With(x => x.SignedPreKeyTimestamp, DateTimeOffset.UtcNow) 
+            .With(x => x.SignedPreKeyTimestamp, DateTimeOffset.UtcNow)
+            .With(x => x.KyberPreKeyId, 1)
+            .With(x => x.KyberPreKeyPublic, [10, 11, 12])
+            .With(x => x.KyberPreKeySignature, [13, 14, 15])
             .Create();
 
         // Act
@@ -57,6 +60,9 @@ public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
         dbResult.SignedPrekeyId.Should().Be(command.SignedPrekeyId);
         dbResult.SignedPreKeyPublic.Should().BeEquivalentTo(command.SignedPreKeyPublic);
         dbResult.SignedPreKeySignature.Should().BeEquivalentTo(command.SignedPreKeySignature);
+        dbResult.KyberPreKeyId.Should().Be(command.KyberPreKeyId);
+        dbResult.KyberPreKeyPublic.Should().BeEquivalentTo(command.KyberPreKeyPublic);
+        dbResult.KyberPreKeySignature.Should().BeEquivalentTo(command.KyberPreKeySignature);
         dbResult.SignedPreKeyTimestamp.Should().BeCloseTo(command.SignedPreKeyTimestamp, TimeSpan.FromTicks(20));
     }
 }

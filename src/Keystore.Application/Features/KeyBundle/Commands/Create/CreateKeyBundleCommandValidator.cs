@@ -33,6 +33,17 @@ public sealed class CreateKeyBundleCommandValidator : AbstractValidator<CreateKe
             .NotNull().WithMessage("Signed PreKey Signature must not be null.")
             .Must(x => x.Length > 0).WithMessage("Signed PreKey Signature must not be empty.");
 
+        RuleFor(x => x.KyberPreKeyId)
+            .GreaterThan(0).WithMessage("Kyber PreKey ID must be greater than 0.");
+
+        RuleFor(x => x.KyberPreKeyPublic)
+            .NotNull().WithMessage("Kyber PreKey Public must not be null.")
+            .Must(x => x.Length > 0).WithMessage("Kyber PreKey Public must not be empty.");
+
+        RuleFor(x => x.KyberPreKeySignature)
+            .NotNull().WithMessage("Kyber PreKey Signature must not be null.")
+            .Must(x => x.Length > 0).WithMessage("Kyber PreKey Signature must not be empty.");
+
         RuleFor(x => x.SignedPreKeyTimestamp)
             .LessThanOrEqualTo(DateTimeOffset.UtcNow.AddMinutes(5))
             .WithMessage("SignedPreKeyTimestamp must be less than or equal to the current time plus 5 minutes. This is to prevent replay attacks.");
