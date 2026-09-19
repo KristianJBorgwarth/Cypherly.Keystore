@@ -11,6 +11,9 @@ public sealed record SessionKeysDto
     public required byte[] SignedPreKeyPublic { get; init; }
     public required byte[] SignedPreKeySignature { get; init; }
     public required PreKeyDto? PreKey { get; init; }
+    public required int KyberPreKeyId { get; init; }
+    public required byte[] KyberPreKeyPublic { get; init; }
+    public required byte[] KyberPreKeySignature { get; init; }
 
     internal static SessionKeysDto MapToSessionKeysDto(KeyBundle keyBundle, PreKey? preKey)
     {
@@ -21,6 +24,9 @@ public sealed record SessionKeysDto
             SignedPrekeyId = keyBundle.SignedPrekeyId,
             SignedPreKeyPublic = keyBundle.SignedPreKeyPublic,
             SignedPreKeySignature = keyBundle.SignedPreKeySignature,
+            KyberPreKeyId = keyBundle.KyberPreKeyId,
+            KyberPreKeyPublic = keyBundle.KyberPreKeyPublic,
+            KyberPreKeySignature = keyBundle.KyberPreKeySignature,
             PreKey = preKey is null
                 ? null
                 : new PreKeyDto

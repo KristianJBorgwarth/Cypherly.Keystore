@@ -29,7 +29,10 @@ public sealed class CreateKeyBundleCommandHandler(
             signedPrekeyId: request.SignedPrekeyId,
             signedPreKeyPublic: request.SignedPreKeyPublic,
             signedPreKeySignature: request.SignedPreKeySignature,
-            signedPreKeyTimestamp: request.SignedPreKeyTimestamp);
+            signedPreKeyTimestamp: request.SignedPreKeyTimestamp,
+            kyberPreKeyId: request.KyberPreKeyId,
+            kyberPreKeyPublic: request.KyberPreKeyPublic,
+            kyberPreKeySignature: request.KyberPreKeySignature);
 
         keyBundle.UploadPreKeys([.. request.PreKeys.Select(x => new Domain.Entities.PreKey(
             id: Guid.NewGuid(),

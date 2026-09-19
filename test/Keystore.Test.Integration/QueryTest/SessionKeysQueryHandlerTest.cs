@@ -50,6 +50,9 @@ public class SessionKeysQueryHandlerTest : IntegrationTestBase
         result.Value.SignedPrekeyId.Should().Be(keyBundle.SignedPrekeyId);
         result.Value.SignedPreKeyPublic.Should().BeEquivalentTo(keyBundle.SignedPreKeyPublic);
         result.Value.SignedPreKeySignature.Should().BeEquivalentTo(keyBundle.SignedPreKeySignature);
+        result.Value.KyberPreKeyId.Should().Be(keyBundle.KyberPreKeyId);
+        result.Value.KyberPreKeyPublic.Should().BeEquivalentTo(keyBundle.KyberPreKeyPublic);
+        result.Value.KyberPreKeySignature.Should().BeEquivalentTo(keyBundle.KyberPreKeySignature);
         result.Value.PreKey.Should().NotBeNull();
         Db.OneTimePreKey.AsNoTracking().Where(x => x.Consumed == true).ToList().Should().HaveCount(1);
         var consumedPrekey = Db.OneTimePreKey.AsNoTracking().FirstOrDefault(x => x.Consumed == true);

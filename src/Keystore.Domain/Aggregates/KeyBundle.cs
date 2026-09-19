@@ -20,6 +20,9 @@ public sealed class KeyBundle : AggregateRoot
     public byte[] SignedPreKeyPublic { get; private set; }
     public byte[] SignedPreKeySignature { get; private set; }
     public DateTimeOffset SignedPreKeyTimestamp { get; private set; }
+    public int KyberPreKeyId { get; private set; }
+    public byte[] KyberPreKeyPublic { get; private set; }
+    public byte[] KyberPreKeySignature { get; private set; }
 
     private readonly List<PreKey> _preKeys = [];
     public IReadOnlyCollection<PreKey> PreKeys => _preKeys.AsReadOnly();
@@ -36,7 +39,10 @@ public sealed class KeyBundle : AggregateRoot
         int signedPrekeyId,
         byte[] signedPreKeyPublic,
         byte[] signedPreKeySignature,
-        DateTimeOffset signedPreKeyTimestamp
+        DateTimeOffset signedPreKeyTimestamp,
+        int kyberPreKeyId,
+        byte[] kyberPreKeyPublic,
+        byte[] kyberPreKeySignature
     ) : base(id)
     {
         UserId = userId;
@@ -45,6 +51,7 @@ public sealed class KeyBundle : AggregateRoot
         RegistrationId = registrationId;
         SignedPreKeyTimestamp = signedPreKeyTimestamp.UtcDateTime;
         RotateSignedPreKey(signedPrekeyId, signedPreKeyPublic, signedPreKeySignature);
+        RotateKyberPreKey(kyberPreKeyId, kyberPreKeyPublic, kyberPreKeySignature);
     }
 
     public void RotateSignedPreKey(int keyId, byte[] pub, byte[] sig)
@@ -52,6 +59,16 @@ public sealed class KeyBundle : AggregateRoot
         SignedPrekeyId = keyId;
         SignedPreKeyPublic = pub ?? throw new ArgumentNullException(nameof(pub));
         SignedPreKeySignature = sig ?? throw new ArgumentNullException(nameof(sig));
+    }
+
+    /// <summary>
+    /// Last-resort Kyber (PQXDH) prekey. It is served with every bundle and never consumed.
+    /// </summary>
+    public void RotateKyberPreKey(int keyId, byte[] pub, byte[] sig)
+    {
+        KyberPreKeyId = keyId;
+        KyberPreKeyPublic = pub ?? throw new ArgumentNullException(nameof(pub));
+        KyberPreKeySignature = sig ?? throw new ArgumentNullException(nameof(sig));
     }
 
     public void UploadPreKeys(IReadOnlyCollection<PreKey> preKeys)
