@@ -11,7 +11,7 @@ public sealed class GetSessionKeysQueryHandler(
     IUnitOfWork unitOfWork)
     : IQueryHandler<GetSessionKeysQuery, SessionKeysDto>
 {
-    public async Task<Result<SessionKeysDto>> Handle(GetSessionKeysQuery query, CancellationToken cancellationToken)
+    public async ValueTask<Result<SessionKeysDto>> Handle(GetSessionKeysQuery query, CancellationToken cancellationToken)
     {
         var keyBundle = await keyBundleRepository.GetByAccessIdAsync(query.AccessKey, cancellationToken: cancellationToken);
         if (keyBundle is null)

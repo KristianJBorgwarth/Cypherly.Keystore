@@ -1,5 +1,5 @@
 ﻿using Keystore.Domain.Abstractions;
-using MediatR;
+using Mediator;
 
 namespace Keystore.Application.Abstractions;
 

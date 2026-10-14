@@ -1,6 +1,6 @@
 ﻿using Keystore.Domain.Abstractions;
 using Keystore.Domain.Common;
-using MediatR;
+using Mediator;
 
 namespace Keystore.Application.Abstractions;
 

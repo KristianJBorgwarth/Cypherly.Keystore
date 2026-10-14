@@ -10,7 +10,7 @@ public sealed class UploadOneTimePreKeysCommandHandler(
     IUnitOfWork unitOfWork)
     : ICommandHandler<UploadOneTimePreKeysCommand>
 {
-    public async Task<Result> Handle(UploadOneTimePreKeysCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Result> Handle(UploadOneTimePreKeysCommand request, CancellationToken cancellationToken)
     {
         var keyBundle = await keyBundleRepository.GetByIdAsync(request.Id, cancellationToken);
         if (keyBundle is null)
