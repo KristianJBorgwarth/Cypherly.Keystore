@@ -6,7 +6,7 @@ namespace Keystore.Application.Features.KeyBundle.Queries.GetPreKeyCount;
 
 public sealed class GetPreKeyCountQueryHandler(IKeyBundleRepository keyBundleRepository) : IQueryHandler<GetPreKeyCountQuery, GetPreKeyCountDto>
 {
-    public async Task<Result<GetPreKeyCountDto>> Handle(GetPreKeyCountQuery query, CancellationToken cancellationToken)
+    public async ValueTask<Result<GetPreKeyCountDto>> Handle(GetPreKeyCountQuery query, CancellationToken cancellationToken)
     {
         var keyBundle = await keyBundleRepository.GetByIdWithPreKeysAsync(query.Id, cancellationToken);
         if (keyBundle is null)

@@ -9,7 +9,7 @@ public sealed class CreateKeyBundleCommandHandler(
     IUnitOfWork unitOfWork)
     : ICommandHandler<CreateKeyBundleCommand>
 {
-    public async Task<Result> Handle(CreateKeyBundleCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Result> Handle(CreateKeyBundleCommand request, CancellationToken cancellationToken)
     {
         var keyBundle = MapToBundle(request);
         await keyBundleRepository.CreateAsync(keyBundle, cancellationToken);

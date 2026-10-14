@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Keystore.Domain.Common;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable InvertIf
@@ -11,19 +11,19 @@ public class ValidationBehavior<TRequest, TResponse>(
     ILogger<ValidationBehavior<TRequest, TResponse>> logger,
     IValidator<TRequest>? validator = null)
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
+    where TRequest : notnull, IMessage
     where TResponse : Result
 {
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+    public async ValueTask<TResponse> Handle(TRequest request, MessageHandlerDelegate<TRequest, TResponse> next,
         CancellationToken cancellationToken)
     {
         if (validator is null)
-            return await next(cancellationToken);
+            return await next(request, cancellationToken);
 
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.IsValid)
-            return await next(cancellationToken);
+            return await next(request, cancellationToken);
 
         var errorMessage = string.Join("; ", validationResult.Errors.Select(e => $"{e.ErrorMessage} ({e.PropertyName})"));
 

@@ -4,7 +4,7 @@ using Keystore.Application.Dtos;
 using Keystore.Application.Features.KeyBundle.Commands.UploadOTPs;
 using Keystore.Application.Features.KeyBundle.Queries.GetPrekey;
 using Keystore.Application.Features.KeyBundle.Queries.GetPreKeyCount;
-using MediatR;
+using Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keystore.API.Endpoints;

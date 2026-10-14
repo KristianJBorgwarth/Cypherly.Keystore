@@ -13,7 +13,7 @@ public sealed class KeyCountEventHandler(
     ILogger<KeyCountEventHandler> logger)
     : IDomainEventHandler<KeyCountEvent>
 {
-    public async Task Handle(KeyCountEvent notification, CancellationToken cancellationToken)
+    public async ValueTask Handle(KeyCountEvent notification, CancellationToken cancellationToken)
     {
         try
         {
