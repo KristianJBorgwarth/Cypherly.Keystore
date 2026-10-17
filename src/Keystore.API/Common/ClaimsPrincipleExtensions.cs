@@ -19,4 +19,12 @@ public static class ClaimsPrincipalExtensions
             ? parsedGuid
             : throw new UnauthorizedAccessException("Device ID not found or invalid.");
     }
+
+    public static Guid GetConnectionId(this ClaimsPrincipal principal)
+    {
+        var connectionId = principal.FindFirst("connection_id");
+        return Guid.TryParse(connectionId?.Value, out var parsedGuid)
+            ? parsedGuid
+            : throw new UnauthorizedAccessException("Connection ID not found or invalid.");
+    }
 }

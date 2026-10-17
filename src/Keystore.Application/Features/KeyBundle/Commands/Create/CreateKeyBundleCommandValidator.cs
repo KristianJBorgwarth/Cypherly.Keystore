@@ -12,6 +12,9 @@ public sealed class CreateKeyBundleCommandValidator : AbstractValidator<CreateKe
         RuleFor(x => x.DeviceId)
             .NotEmpty().WithMessage("Device ID cannot be empty.");
 
+        RuleFor(x => x.ConnectionId)
+            .NotEmpty().WithMessage("Connection ID cannot be empty.");
+
         RuleFor(x => x.AccessKey)
             .NotEmpty().WithMessage("Access key cannot be empty.");
 

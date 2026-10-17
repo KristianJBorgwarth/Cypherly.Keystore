@@ -20,7 +20,7 @@ internal sealed class KeyBundleEndpoints : IEndpoint
 
         group.MapPost("/", async ([FromBody] CreateKeyBundleRequest req, ISender sender, HttpContext ctx) =>
             {
-                var cmd = req.MapToCommand(ctx.User.GetUserId(), ctx.User.GetDeviceId());
+                var cmd = req.MapToCommand(ctx.User.GetUserId(), ctx.User.GetDeviceId(), ctx.User.GetConnectionId());
                 var result = await sender.Send(cmd);
 
                 return result.Success ? Results.Ok() : result.ToProblemDetails();

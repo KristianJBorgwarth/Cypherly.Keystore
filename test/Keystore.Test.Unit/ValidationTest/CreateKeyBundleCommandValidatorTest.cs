@@ -57,6 +57,18 @@ public class CreateKeyBundleCommandValidatorTest
     }
 
     [Fact]
+    public void Should_Fail_When_ConnectionId_Is_Empty()
+    {
+        var command = _fixture.Build<CreateKeyBundleCommand>()
+            .With(x => x.ConnectionId, Guid.Empty)
+            .Create();
+
+        var result = _validator.TestValidate(command);
+
+        result.ShouldHaveValidationErrorFor(x => x.ConnectionId);
+    }
+
+    [Fact]
     public void Should_Fail_When_IdentityKey_Is_Empty()
     {
         var command = _fixture.Build<CreateKeyBundleCommand>()
