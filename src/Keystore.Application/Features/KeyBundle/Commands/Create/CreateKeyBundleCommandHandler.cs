@@ -11,6 +11,11 @@ public sealed class CreateKeyBundleCommandHandler(
 {
     public async Task<Result> Handle(CreateKeyBundleCommand request, CancellationToken cancellationToken)
     {
+        // The access key is the device's connection ID. Reject keys that don't belong to the caller,
+        // otherwise anyone who learns a device's connection ID could claim its slot first.
+        if (request.AccessKey != request.ConnectionId)
+            return Result.Fail(Error.Unauthorized());
+
         var keyBundle = MapToBundle(request);
         await keyBundleRepository.CreateAsync(keyBundle, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
