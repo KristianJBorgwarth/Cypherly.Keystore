@@ -22,11 +22,18 @@ builder.Services.AddAuthentication(configuration);
 
 builder.Services.AddEndpoints();
 
+builder.Services.AddExceptionHandler<UnauthorizedExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+app.UseExceptionHandler();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.RegisterMinimalEndpoints();
 
