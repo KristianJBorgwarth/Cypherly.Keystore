@@ -18,10 +18,11 @@ internal sealed class CreateKeyBundleRequest
     public required byte[] KyberPreKeyPublic { get; init; }
     public required byte[] KyberPreKeySignature { get; init; }
 
-    public CreateKeyBundleCommand MapToCommand(Guid userId, Guid deviceId) => new()
+    public CreateKeyBundleCommand MapToCommand(Guid userId, Guid deviceId, Guid connectionId) => new()
     {
         TenantId = userId,
         DeviceId = deviceId,
+        ConnectionId = connectionId,
         AccessKey = AccessKey,
         IdentityKey = IdentityKey,
         RegistrationId = RegistrationId,

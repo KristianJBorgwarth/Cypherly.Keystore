@@ -3,6 +3,7 @@ using FluentAssertions;
 using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
 using Keystore.Application.Features.KeyBundle.Commands.Create;
+using Keystore.Domain.Common;
 using Keystore.Infrastructure.Persistence.Context;
 using Keystore.Test.Integration.Setup;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +23,11 @@ public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
             scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
     }
 
-    [Fact]
-    public async Task CreateKeyBundleCommandHandler_ShouldCreateKeyBundle()
-    {
-        // Arrange
-        var command = _fixture.Build<CreateKeyBundleCommand>()
+    private CreateKeyBundleCommand CreateCommand(Guid accessKey, Guid connectionId) => _fixture.Build<CreateKeyBundleCommand>()
             .With(x => x.DeviceId, Guid.NewGuid())
             .With(x => x.TenantId, Guid.NewGuid())
-            .With(x => x.AccessKey, Guid.NewGuid())
+            .With(x => x.AccessKey, accessKey)
+            .With(x => x.ConnectionId, connectionId)
             .With(x => x.IdentityKey, [1, 2, 3])
             .With(x => x.RegistrationId, 1)
             .With(x => x.SignedPrekeyId, 1)
@@ -40,6 +38,13 @@ public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
             .With(x => x.KyberPreKeyPublic, [10, 11, 12])
             .With(x => x.KyberPreKeySignature, [13, 14, 15])
             .Create();
+
+    [Fact]
+    public async Task CreateKeyBundleCommandHandler_ShouldCreateKeyBundle()
+    {
+        // Arrange
+        var connectionId = Guid.NewGuid();
+        var command = CreateCommand(connectionId, connectionId);
 
         // Act
         var result = await _sut.Handle(command, CancellationToken.None);
@@ -64,5 +69,20 @@ public class CreateKeyBundleCommandHandlerTest : IntegrationTestBase
         dbResult.KyberPreKeyPublic.Should().BeEquivalentTo(command.KyberPreKeyPublic);
         dbResult.KyberPreKeySignature.Should().BeEquivalentTo(command.KyberPreKeySignature);
         dbResult.SignedPreKeyTimestamp.Should().BeCloseTo(command.SignedPreKeyTimestamp, TimeSpan.FromTicks(20));
+    }
+
+    [Fact]
+    public async Task CreateKeyBundleCommandHandler_Given_AccessKeyNotMatchingConnectionId_Should_RejectAndNotPersist()
+    {
+        // Arrange
+        var command = CreateCommand(Guid.NewGuid(), Guid.NewGuid());
+
+        // Act
+        var result = await _sut.Handle(command, CancellationToken.None);
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Error!.Type.Should().Be(ErrorType.Unauthorized);
+        (await Db.KeyBundle.AnyAsync(x => x.Id == command.DeviceId)).Should().BeFalse();
     }
 }

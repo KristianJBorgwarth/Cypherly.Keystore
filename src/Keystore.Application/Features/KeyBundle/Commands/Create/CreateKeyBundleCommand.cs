@@ -7,6 +7,11 @@ public sealed record CreateKeyBundleCommand : ICommand
 {
     public required Guid TenantId { get; init; }
     public required Guid DeviceId { get; init; }
+
+    /// <summary>
+    /// The caller's connection ID, taken from the JWT. The client-supplied <see cref="AccessKey"/> must match it.
+    /// </summary>
+    public required Guid ConnectionId { get; init; }
     public required Guid AccessKey { get; init; }
     public required byte[] IdentityKey { get; init; }
     public required ushort RegistrationId { get; init; }
