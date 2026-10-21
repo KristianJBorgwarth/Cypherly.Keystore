@@ -17,7 +17,7 @@ public sealed class KeyCountEventHandler(
     {
         try
         {
-            var keyBundle = await keyBundleRepository.GetByIdWithPreKeysAsync(notification.TenantId, cancellationToken)
+            var keyBundle = await keyBundleRepository.GetAsync(new KeyBundleWithPreKeysSpec(notification.TenantId), cancellationToken)
                 ?? throw new NullReferenceException($"No key bundle found for tenant id: {notification.TenantId}");
 
             if (keyBundle.PreKeys.Count > 20) return;
