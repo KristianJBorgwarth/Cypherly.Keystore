@@ -25,5 +25,10 @@ public enum ErrorType
     /// <summary>
     /// Will be used for 400 Bad Request errors that are not related to validation.
     /// </summary>
-    BadRequest = 5 // 400 Bad Request
+    BadRequest = 5, // 400 Bad Request
+
+    /// <summary>
+    /// Indicates that the request could not be completed due to a conflict with the current state of the resource.
+    /// </summary>
+    Conflict = 6, // 409 Conflict
 }

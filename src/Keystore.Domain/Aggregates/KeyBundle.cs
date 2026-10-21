@@ -91,7 +91,7 @@ public sealed class KeyBundle : AggregateRoot
         var pk = _preKeys.FirstOrDefault(k=> k.Consumed is false);
         if (pk is null) return null;
 
-        pk.Consume();
+        _preKeys.Remove(pk);
         return pk;
     }
 }

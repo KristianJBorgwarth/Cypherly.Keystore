@@ -1,9 +1,11 @@
 ﻿using Keystore.Application.Abstractions;
+using Keystore.Application.Exceptions;
 using Keystore.Domain.Abstractions;
 using Keystore.Infrastructure.Persistence.Context;
 using Keystore.Infrastructure.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Npgsql;
 
 namespace Keystore.Infrastructure.Persistence.Repositories;
 
@@ -16,7 +18,19 @@ public class UnitOfWork(KeystoreDbContext context) : IUnitOfWork
     {
         ConvertDomainEventsToOutboxMessages();
         UpdateAuditableEntities();
-        await context.SaveChangesAsync(cancellationToken);
+
+        try
+        {
+            await context.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            throw new ConcurrencyConflictException("The entity was modified by another writer.", e);
+        }
+        catch (DbUpdateException e) when (e.InnerException is PostgresException { SqlState: PostgresErrorCodes.UniqueViolation })
+        {
+            throw new ConcurrencyConflictException("A conflicting row already exists.", e);
+        }
     }
 
     /// <summary>
