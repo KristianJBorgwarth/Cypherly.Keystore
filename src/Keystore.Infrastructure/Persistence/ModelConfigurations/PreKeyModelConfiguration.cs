@@ -28,9 +28,9 @@ public sealed class PreKeyModelConfiguration : BaseModelConfiguration<PreKey>
             .HasColumnName("key_id")
             .IsRequired();
 
-        builder.Property(pk => pk.Consumed)
-            .HasColumnName("consumed")
-            .IsRequired();
+        builder.HasIndex(pk => new { pk.KeyBundleId, pk.KeyId })
+            .HasDatabaseName("idx_key_bundle_key_id")
+            .IsUnique();
         
         base.Configure(builder);
     }

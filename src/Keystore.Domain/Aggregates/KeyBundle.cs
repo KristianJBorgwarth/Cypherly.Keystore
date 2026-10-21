@@ -1,7 +1,6 @@
 ﻿using Keystore.Domain.Abstractions;
 using Keystore.Domain.Common;
 using Keystore.Domain.Entities;
-using Keystore.Domain.Events;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -76,7 +75,7 @@ public sealed class KeyBundle : AggregateRoot
 
     public Result UploadPreKeys(IReadOnlyCollection<PreKey> preKeys)
     {
-        if (_preKeys.Count(k => k.Consumed is false) + preKeys.Count > MaxStoredPreKeys)
+        if (_preKeys.Count + preKeys.Count > MaxStoredPreKeys)
             return Result.Fail(Error.Validation($"A device can store at most {MaxStoredPreKeys} unused pre-keys."));
 
         if (preKeys.Any(k => _preKeys.Any(stored => stored.KeyId == k.KeyId)))
@@ -88,10 +87,10 @@ public sealed class KeyBundle : AggregateRoot
 
     public PreKey? ConsumePreKey()
     {
-        var pk = _preKeys.FirstOrDefault(k=> k.Consumed is false);
+        var pk = _preKeys.FirstOrDefault();
         if (pk is null) return null;
 
-        pk.Consume();
+        _preKeys.Remove(pk);
         return pk;
     }
 }

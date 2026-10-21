@@ -1,6 +1,7 @@
 ﻿using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
 using Keystore.Application.Dtos;
+using Keystore.Application.Exceptions;
 using Keystore.Domain.Common;
 using Keystore.Domain.Events;
 
@@ -25,7 +26,14 @@ public sealed class GetSessionKeysQueryHandler(
 
         keyBundle.AddDomainEvent(new KeyCountEvent { TenantId = keyBundle.Id, ConnectionId = keyBundle.AccessKey });
 
-        await unitOfWork.SaveChangesAsync(CancellationToken.None);
+        try
+        {
+            await unitOfWork.SaveChangesAsync(CancellationToken.None);
+        }
+        catch (ConcurrencyConflictException e)
+        {
+            return Result.Fail<SessionKeysDto>(Error.Conflict(e.Message));
+        }
 
         return Result.Ok(sessionKeysDto);
     }

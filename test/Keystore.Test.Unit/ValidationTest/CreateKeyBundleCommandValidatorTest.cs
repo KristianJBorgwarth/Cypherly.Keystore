@@ -3,6 +3,7 @@ using FluentAssertions;
 using FluentValidation.TestHelper;
 using Keystore.Application.Dtos;
 using Keystore.Application.Features.KeyBundle.Commands.Create;
+using Keystore.Application.Features.KeyBundle.Validators;
 
 namespace Keystore.Test.Unit.ValidationTest;
 
