@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using FluentValidation.TestHelper;
+using Keystore.Application.Dtos;
 using Keystore.Application.Features.KeyBundle.Commands.Create;
 
 namespace Keystore.Test.Unit.ValidationTest;
@@ -9,6 +10,22 @@ public class CreateKeyBundleCommandValidatorTest
 {
     private readonly CreateKeyBundleCommandValidator _validator = new();
     private readonly Fixture _fixture = new();
+
+    private static PreKeyDto PreKey(int keyId) => new() { KeyId = keyId, PublicKey = [0x05, .. Enumerable.Repeat((byte)keyId, 32)] };
+
+    private static IReadOnlyCollection<PreKeyDto> PreKeys(int count) => [.. Enumerable.Range(1, count).Select(PreKey)];
+
+    private CreateKeyBundleCommand ValidCommand(IReadOnlyCollection<PreKeyDto> preKeys) => _fixture.Build<CreateKeyBundleCommand>()
+        .With(x => x.TenantId, Guid.NewGuid())
+        .With(x => x.AccessKey, Guid.NewGuid)
+        .With(x => x.IdentityKey, [1, 2, 3])
+        .With(x => x.RegistrationId, 1)
+        .With(x => x.SignedPrekeyId, 1)
+        .With(x => x.SignedPreKeyPublic, [4, 5, 6])
+        .With(x => x.SignedPreKeySignature, [7, 8, 9])
+        .With(x => x.SignedPreKeyTimestamp, DateTimeOffset.UtcNow)
+        .With(x => x.PreKeys, preKeys)
+        .Create();
 
     [Fact]
     public void Should_Pass_Validation_For_Valid_Command()
@@ -23,6 +40,7 @@ public class CreateKeyBundleCommandValidatorTest
             .With(x => x.SignedPreKeyPublic, [4, 5, 6])
             .With(x => x.SignedPreKeySignature, [7, 8, 9])
             .With(x => x.SignedPreKeyTimestamp, DateTimeOffset.UtcNow)
+            .With(x => x.PreKeys, PreKeys(3))
             .Create();
 
         // Act
@@ -30,6 +48,40 @@ public class CreateKeyBundleCommandValidatorTest
 
         // Assert
         result.IsValid.Should().BeTrue();
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(PreKeyDtoValidator.MaxPreKeysPerRequest)]
+    public void Should_Pass_With_Up_To_The_Maximum_PreKeys(int count)
+    {
+        var result = _validator.TestValidate(ValidCommand(PreKeys(count)));
+
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Should_Fail_When_Too_Many_PreKeys()
+    {
+        var result = _validator.TestValidate(ValidCommand(PreKeys(PreKeyDtoValidator.MaxPreKeysPerRequest + 1)));
+
+        result.ShouldHaveValidationErrorFor(x => x.PreKeys);
+    }
+
+    [Fact]
+    public void Should_Fail_When_PreKey_Ids_Repeat()
+    {
+        var result = _validator.TestValidate(ValidCommand([PreKey(1), PreKey(1)]));
+
+        result.ShouldHaveValidationErrorFor(x => x.PreKeys);
+    }
+
+    [Fact]
+    public void Should_Fail_When_PreKey_Is_Malformed()
+    {
+        var result = _validator.TestValidate(ValidCommand([new PreKeyDto { KeyId = 1, PublicKey = new byte[32] }]));
+
+        result.IsValid.Should().BeFalse();
     }
 
     [Fact]
