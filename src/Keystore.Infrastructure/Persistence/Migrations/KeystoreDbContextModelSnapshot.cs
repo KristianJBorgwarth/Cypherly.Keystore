@@ -104,10 +104,6 @@ namespace Keystore.Infrastructure.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<bool>("Consumed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("consumed");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
@@ -135,7 +131,9 @@ namespace Keystore.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KeyBundleId");
+                    b.HasIndex("KeyBundleId", "KeyId")
+                        .IsUnique()
+                        .HasDatabaseName("idx_key_bundle_key_id");
 
                     b.ToTable("pre_key", (string)null);
                 });

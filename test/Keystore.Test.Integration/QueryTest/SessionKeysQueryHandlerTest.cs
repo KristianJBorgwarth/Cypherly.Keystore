@@ -130,7 +130,7 @@ public class SessionKeysQueryHandlerTest : IntegrationTestBase
         // Arrange
         result.Success.Should().BeFalse();
         result.Error!.Code.Should().Be("entity.not.found");
-        Db.OneTimePreKey.AsNoTracking().Where(x => x.Consumed == true).ToList().Should().HaveCount(0);
+        Db.OneTimePreKey.AsNoTracking().Should().HaveCount(100);
     }
 
     [Fact]
