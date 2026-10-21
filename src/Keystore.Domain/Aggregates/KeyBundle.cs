@@ -1,4 +1,5 @@
 ﻿using Keystore.Domain.Abstractions;
+using Keystore.Domain.Common;
 using Keystore.Domain.Entities;
 using Keystore.Domain.Events;
 
@@ -23,6 +24,8 @@ public sealed class KeyBundle : AggregateRoot
     public int KyberPreKeyId { get; private set; }
     public byte[] KyberPreKeyPublic { get; private set; }
     public byte[] KyberPreKeySignature { get; private set; }
+
+    public const int MaxStoredPreKeys = 200;
 
     private readonly List<PreKey> _preKeys = [];
     public IReadOnlyCollection<PreKey> PreKeys => _preKeys.AsReadOnly();
@@ -71,9 +74,16 @@ public sealed class KeyBundle : AggregateRoot
         KyberPreKeySignature = sig ?? throw new ArgumentNullException(nameof(sig));
     }
 
-    public void UploadPreKeys(IReadOnlyCollection<PreKey> preKeys)
+    public Result UploadPreKeys(IReadOnlyCollection<PreKey> preKeys)
     {
+        if (_preKeys.Count(k => k.Consumed is false) + preKeys.Count > MaxStoredPreKeys)
+            return Result.Fail(Error.Validation($"A device can store at most {MaxStoredPreKeys} unused pre-keys."));
+
+        if (preKeys.Any(k => _preKeys.Any(stored => stored.KeyId == k.KeyId)))
+            return Result.Fail(Error.Validation("A pre-key with the same KeyId is already stored."));
+
         _preKeys.AddRange(preKeys);
+        return Result.Ok();
     }
 
     public PreKey? ConsumePreKey()

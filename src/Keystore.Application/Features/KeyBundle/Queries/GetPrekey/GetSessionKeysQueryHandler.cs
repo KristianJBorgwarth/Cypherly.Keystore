@@ -13,7 +13,7 @@ public sealed class GetSessionKeysQueryHandler(
 {
     public async ValueTask<Result<SessionKeysDto>> Handle(GetSessionKeysQuery query, CancellationToken cancellationToken)
     {
-        var keyBundle = await keyBundleRepository.GetByAccessIdAsync(query.AccessKey, cancellationToken: cancellationToken);
+        var keyBundle = await keyBundleRepository.GetAsync(new KeyBundleByAccessKeyWithPreKeysSpec(query.AccessKey), cancellationToken);
         if (keyBundle is null)
         {
             return Result.Fail<SessionKeysDto>(Error.NotFound<Domain.Aggregates.KeyBundle>(query.AccessKey.ToString()));

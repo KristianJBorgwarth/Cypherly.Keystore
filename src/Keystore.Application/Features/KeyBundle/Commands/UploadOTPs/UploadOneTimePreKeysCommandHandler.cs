@@ -12,7 +12,7 @@ public sealed class UploadOneTimePreKeysCommandHandler(
 {
     public async ValueTask<Result> Handle(UploadOneTimePreKeysCommand request, CancellationToken cancellationToken)
     {
-        var keyBundle = await keyBundleRepository.GetByIdAsync(request.Id, cancellationToken);
+        var keyBundle = await keyBundleRepository.GetAsync(new KeyBundleWithPreKeysSpec(request.Id), cancellationToken);
         if (keyBundle is null)
         {
             return Result.Fail(Error.NotFound<Domain.Aggregates.KeyBundle>(request.Id.ToString()));
@@ -26,7 +26,9 @@ public sealed class UploadOneTimePreKeysCommandHandler(
                 publicKey: x.PublicKey))
             .ToList();
 
-        keyBundle.UploadPreKeys(preKeys);
+        var uploaded = keyBundle.UploadPreKeys(preKeys);
+        if (uploaded.Success is false)
+            return uploaded;
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return Result.Ok();

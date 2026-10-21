@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Keystore.Application.Dtos;
 
 namespace Keystore.Application.Features.KeyBundle.Commands.Create;
 
@@ -46,6 +47,15 @@ public sealed class CreateKeyBundleCommandValidator : AbstractValidator<CreateKe
         RuleFor(x => x.KyberPreKeySignature)
             .NotNull().WithMessage("Kyber PreKey Signature must not be null.")
             .Must(x => x.Length > 0).WithMessage("Kyber PreKey Signature must not be empty.");
+
+        RuleFor(x => x.PreKeys)
+            .NotNull().WithMessage("PreKeys collection is missing.")
+            .Must(pks => pks.Count <= PreKeyDtoValidator.MaxPreKeysPerRequest)
+            .WithMessage($"At most {PreKeyDtoValidator.MaxPreKeysPerRequest} pre-keys can be uploaded per request.")
+            .Must(pks => pks.Select(pk => pk.KeyId).Distinct().Count() == pks.Count)
+            .WithMessage("KeyId values must be unique within the batch.");
+
+        RuleForEach(x => x.PreKeys).SetValidator(new PreKeyDtoValidator());
 
         RuleFor(x => x.SignedPreKeyTimestamp)
             .LessThanOrEqualTo(DateTimeOffset.UtcNow.AddMinutes(5))

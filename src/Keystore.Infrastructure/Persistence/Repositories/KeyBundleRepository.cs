@@ -1,4 +1,5 @@
-﻿using Keystore.Application.Contracts;
+﻿using Keystore.Application.Abstractions;
+using Keystore.Application.Contracts;
 using Keystore.Domain.Aggregates;
 using Keystore.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -18,23 +19,18 @@ internal sealed class KeyBundleRepository(KeystoreDbContext context) : IKeyBundl
         return await context.KeyBundle.FirstOrDefaultAsync(x => x.Id == tenantId, cancellationToken);
     }
 
-    public async Task<KeyBundle?> GetByIdWithPreKeysAsync(Guid tenantId, CancellationToken cancellationToken = default)
+    public async Task<KeyBundle?> GetAsync(ISpecification<KeyBundle> spec, CancellationToken cancellationToken = default)
     {
-        return await context.KeyBundle.Include(x => x.PreKeys).FirstOrDefaultAsync(x => x.Id == tenantId, cancellationToken);
+        var query = context.KeyBundle.Where(spec.Criteria);
+
+        query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
+
+        return await query.FirstOrDefaultAsync(cancellationToken);
     }
 
     public async Task DeleteAsync(KeyBundle entity, CancellationToken cancellationToken = default)
     {
         context.KeyBundle.Remove(entity);
-    }
-
-    public async Task<KeyBundle?> GetByAccessIdAsync(Guid accessKey, CancellationToken cancellationToken = default)
-    {
-        var keyBundle = await context.KeyBundle
-            .Include(x => x.PreKeys)
-            .FirstOrDefaultAsync(x => x.AccessKey == accessKey, cancellationToken: cancellationToken);
-
-        return keyBundle;
     }
 
 }

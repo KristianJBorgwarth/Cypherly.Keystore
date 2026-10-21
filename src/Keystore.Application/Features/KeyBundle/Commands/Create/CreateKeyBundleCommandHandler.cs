@@ -17,6 +17,16 @@ public sealed class CreateKeyBundleCommandHandler(
             return Result.Fail(Error.Unauthorized());
 
         var keyBundle = MapToBundle(request);
+
+        var uploaded = keyBundle.UploadPreKeys([.. request.PreKeys.Select(x => new Domain.Entities.PreKey(
+            id: Guid.NewGuid(),
+            keyBundleId: request.DeviceId,
+            keyId: x.KeyId,
+            publicKey: x.PublicKey))]);
+
+        if (uploaded.Success is false)
+            return uploaded;
+
         await keyBundleRepository.CreateAsync(keyBundle, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
@@ -38,13 +48,6 @@ public sealed class CreateKeyBundleCommandHandler(
             kyberPreKeyId: request.KyberPreKeyId,
             kyberPreKeyPublic: request.KyberPreKeyPublic,
             kyberPreKeySignature: request.KyberPreKeySignature);
-
-        keyBundle.UploadPreKeys([.. request.PreKeys.Select(x => new Domain.Entities.PreKey(
-            id: Guid.NewGuid(),
-            keyBundleId:
-            request.DeviceId,
-            keyId: x.KeyId,
-            publicKey: x.PublicKey))]);
 
         return keyBundle;
     }

@@ -8,7 +8,7 @@ public sealed class GetPreKeyCountQueryHandler(IKeyBundleRepository keyBundleRep
 {
     public async ValueTask<Result<GetPreKeyCountDto>> Handle(GetPreKeyCountQuery query, CancellationToken cancellationToken)
     {
-        var keyBundle = await keyBundleRepository.GetByIdWithPreKeysAsync(query.Id, cancellationToken);
+        var keyBundle = await keyBundleRepository.GetAsync(new KeyBundleWithPreKeysSpec(query.Id), cancellationToken);
         if (keyBundle is null)
         {
             return Result.Fail<GetPreKeyCountDto>(Error.NotFound<Domain.Aggregates.KeyBundle>(query.Id.ToString()));
