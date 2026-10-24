@@ -1,7 +1,7 @@
 ﻿using Keystore.Domain.Abstractions;
 using Keystore.Domain.Aggregates;
 
-// ReSharper disable ConvertToPrimaryConstructor
+#pragma warning disable IDE0290 // Use primary constructor
 
 namespace Keystore.Domain.Entities;
 

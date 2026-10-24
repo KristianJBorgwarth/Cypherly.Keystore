@@ -21,8 +21,5 @@ public abstract class BaseModelConfiguration<TModel> : IEntityTypeConfiguration<
 
         builder.Property(x => x.Updated)
             .HasColumnName("updated");
-        
-        builder.Property(x=> x.Deleted) 
-            .HasColumnName("deleted");
     }
 }
