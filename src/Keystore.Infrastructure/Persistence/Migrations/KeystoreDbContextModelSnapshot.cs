@@ -36,10 +36,6 @@ namespace Keystore.Infrastructure.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
 
-                    b.Property<DateTime?>("Deleted")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted");
-
                     b.Property<byte[]>("IdentityKey")
                         .IsRequired()
                         .HasColumnType("bytea")
@@ -107,10 +103,6 @@ namespace Keystore.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created");
-
-                    b.Property<DateTime?>("Deleted")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deleted");
 
                     b.Property<Guid>("KeyBundleId")
                         .HasColumnType("uuid")
