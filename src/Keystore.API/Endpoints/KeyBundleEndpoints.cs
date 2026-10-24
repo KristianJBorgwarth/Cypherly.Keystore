@@ -51,7 +51,7 @@ internal sealed class KeyBundleEndpoints : IEndpoint
             {
                 var cmd = new GetPreKeyCountQuery { Id = ctx.User.GetDeviceId() };
                 var result = await sender.Send(cmd);
-                return result.Success ? Results.Ok() : result.ToProblemDetails();
+                return result.Success ? Results.Ok(result.Value) : result.ToProblemDetails();
             })
             .Produces<GetPreKeyCountDto>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
