@@ -20,11 +20,6 @@ public static class MasstransitExtensions
             {
                 e.Consumer<UserLogoutConsumer>(context);
             });
-
-            cfg.ReceiveEndpoint("keystore.device_deleted_queue", e =>
-            {
-                e.Consumer<DeviceDeletedConsumer>(context);
-            });
         });
 
         services.AddProducer<KeyCountLowMessage>();
