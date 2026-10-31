@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Cypherly.Message.Contracts.Abstractions;
-using Cypherly.Message.Contracts.Messages.KeyBundle;
+using Cendrite.Message.Contracts.Abstractions;
+using Cendrite.Message.Contracts.Messages.KeyBundle;
 using Keystore.Application.Features.KeyBundle.Consumers;
 using Keystore.Infrastructure.Messaging;
 using Keystore.Infrastructure.Settings;

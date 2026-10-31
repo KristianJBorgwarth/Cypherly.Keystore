@@ -1,4 +1,4 @@
-using Cypherly.Message.Contracts.Messages.User;
+using Cendrite.Message.Contracts.Messages.User;
 using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
 using MassTransit;
