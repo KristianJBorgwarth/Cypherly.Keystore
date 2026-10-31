@@ -1,4 +1,4 @@
-SLN := Cypherly.Keystore.sln
+SLN := Cendrite.Keystore.sln
 
 .PHONY: restore build test clean
 

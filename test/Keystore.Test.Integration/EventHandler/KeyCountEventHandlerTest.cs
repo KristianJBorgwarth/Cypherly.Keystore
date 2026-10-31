@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
-using Cypherly.Message.Contracts.Abstractions;
-using Cypherly.Message.Contracts.Messages.KeyBundle;
+using Cendrite.Message.Contracts.Abstractions;
+using Cendrite.Message.Contracts.Messages.KeyBundle;
 using FluentAssertions;
 using Keystore.Application.Contracts;
 using Keystore.Application.Features.KeyBundle.Events;

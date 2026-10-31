@@ -1,5 +1,5 @@
-﻿using Cypherly.Message.Contracts.Abstractions;
-using Cypherly.Message.Contracts.Messages.KeyBundle;
+﻿using Cendrite.Message.Contracts.Abstractions;
+using Cendrite.Message.Contracts.Messages.KeyBundle;
 using Keystore.Application.Abstractions;
 using Keystore.Application.Contracts;
 using Keystore.Domain.Events;
